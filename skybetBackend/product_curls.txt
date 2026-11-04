@@ -1,0 +1,96 @@
+========================================
+  PRODUCT API - CURL COMMANDS & SPECIFICATIONS
+  Base URL: http://localhost:7856/api/products
+========================================
+
+category enum values: solar | led | battery | pole
+
+----------------------------------------
+1. GET All Products
+----------------------------------------
+curl -X GET http://localhost:7856/api/products/
+
+Filter by category:
+curl -X GET "http://localhost:7856/api/products?category=solar"
+
+----------------------------------------
+2. GET Product by ID (Full Solar Technical Datasheet)
+----------------------------------------
+curl -X GET http://localhost:7856/api/products/<PRODUCT_ID>
+
+Example Response:
+{
+  "_id": "69d61b860583ea3f3f63dbf9",
+  "name": "100W All-in-One Solar Street Light",
+  "img": "/uploads/1775639430071-91148918.jpeg",
+  "category": "solar",
+  "price": 14500,
+  "wattage": "100W",
+  "solarPanelWattage": "80W Monocrystalline",
+  "voltage": "12.8V DC",
+  "batteryCapacity": "36Ah LiFePO4",
+  "backupTime": "12-14 Hours (2-3 Rainy Days)",
+  "chargingTime": "6-8 Hours under sunlight",
+  "efficiency": "≥21.5%",
+  "lumes": "12000 lm",
+  "temperature": "6000K (Cool White)",
+  "ipRating": "IP66 Waterproof",
+  "material": "Die-Cast Aluminum + Toughened Glass",
+  "dimension": "680 x 270 x 85 mm",
+  "weight": "8.2 kg",
+  "guaranteeYear": "5 Years",
+  "certification": "MNRE Approved, BIS, CE, RoHS, ISO 9001",
+  "application": "Streets, Highways, Industrial Parks, Rural Roads",
+  "inStock": true,
+  "stockQuantity": 25,
+  "description": "High performance solar street light with motion sensor and dusk-to-dawn intelligent control.",
+  "list": [
+    "Integrated LiFePO4 Battery with BMS",
+    "High conversion Monocrystalline Solar Panel",
+    "Auto Dusk to Dawn & PIR Motion Sensor",
+    "Zero Electricity Bill & Easy Pole Mounting"
+  ],
+  "createdAt": "2026-10-28T12:00:00.000Z"
+}
+
+----------------------------------------
+3. POST Create Solar Product
+----------------------------------------
+curl -X POST http://localhost:7856/api/products/ \
+  -F "name=100W All-in-One Solar Street Light" \
+  -F "category=solar" \
+  -F "price=14500" \
+  -F "wattage=100W" \
+  -F "solarPanelWattage=80W Monocrystalline" \
+  -F "voltage=12.8V DC" \
+  -F "batteryCapacity=36Ah LiFePO4" \
+  -F "backupTime=12-14 Hours" \
+  -F "chargingTime=6-8 Hours" \
+  -F "efficiency=21.5%" \
+  -F "lumes=12000 lm" \
+  -F "temperature=6000K" \
+  -F "ipRating=IP66" \
+  -F "material=Die-Cast Aluminum" \
+  -F "dimension=680 x 270 x 85 mm" \
+  -F "weight=8.2 kg" \
+  -F "guaranteeYear=5 Years" \
+  -F "certification=MNRE Approved, BIS, CE, ISO 9001" \
+  -F "application=Highway, Rural Roads, Residential" \
+  -F "description=Industrial grade solar street light." \
+  -F "list[]=High Efficiency Solar Panel" \
+  -F "list[]=LiFePO4 Long Life Battery" \
+  -F "list[]=Auto Dusk-to-Dawn" \
+  -F "img=@/path/to/solar_light.jpg"
+
+----------------------------------------
+4. PUT Update Product by ID
+----------------------------------------
+curl -X PUT http://localhost:7856/api/products/<PRODUCT_ID> \
+  -F "price=15200" \
+  -F "guaranteeYear=5 Years" \
+  -F "backupTime=14-16 Hours"
+
+----------------------------------------
+5. DELETE Product by ID
+----------------------------------------
+curl -X DELETE http://localhost:7856/api/products/<PRODUCT_ID>

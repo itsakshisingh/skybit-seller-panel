@@ -1,0 +1,50 @@
+# Postman cURL commands for HomeService APIs (Schema Accurate)
+# Base URL: https://skybetbackend.bhoomi.cloud/api/home/service
+
+# ----------------------------------------
+# CREATE Home Service
+# ----------------------------------------
+curl -X POST "https://skybetbackend.bhoomi.cloud/api/home/service" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Cleaning Service",
+    "title": "Solar Panel Cleaning",
+    "description": "Professional cleaning for maximum efficiency",
+    "list": ["Dust removal", "Panel washing", "Inspection"],
+    "category": "solar"
+  }'
+
+# ----------------------------------------
+# GET All Home Services
+# ----------------------------------------
+curl -X GET "https://skybetbackend.bhoomi.cloud/api/home/service"
+
+# ----------------------------------------
+# GET Home Service by ID
+# ----------------------------------------
+curl -X GET "https://skybetbackend.bhoomi.cloud/api/home/service/<id>"
+
+# ----------------------------------------
+# UPDATE Home Service
+# ----------------------------------------
+curl -X PUT "https://skybetbackend.bhoomi.cloud/api/home/service/<id>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Updated Name",
+    "title": "Updated Title",
+    "description": "Updated description",
+    "list": ["Updated point 1", "Updated point 2"],
+    "category": "other"
+  }'
+
+# ----------------------------------------
+# DELETE Home Service
+# ----------------------------------------
+curl -X DELETE "https://skybetbackend.bhoomi.cloud/api/home/service/<id>"
+
+# ========================================
+#  NOTE:
+#  - Replace <id> with the actual Home Service ID
+#  - Use category as either "solar" or "other"
+#  - The list field is an array of strings
+# ========================================

@@ -1,0 +1,109 @@
+========================================
+  GET KNOW SOLAR API - CURL COMMANDS
+  Base URL: https://skybetbackend.bhoomi.cloud/api/getknowsolar
+========================================
+
+----------------------------------------
+  WHOLE DOCUMENT
+----------------------------------------
+
+GET Whole Document:
+curl -X GET https://skybetbackend.bhoomi.cloud/api/getknowsolar/
+
+POST Upsert Whole Document:
+curl -X POST https://skybetbackend.bhoomi.cloud/api/getknowsolar/ \
+  -H "Content-Type: application/json" \
+  -d '{"heroSection": {"title": "Know Solar", "subtitle": "Learn about solar", "desp": "Description"}, "foundation": [], "chooseSolar": [], "whereSolarFits": {"list": [], "img": ""}}'
+
+----------------------------------------
+  HERO SECTION
+----------------------------------------
+
+GET Hero Section:
+curl -X GET https://skybetbackend.bhoomi.cloud/api/getknowsolar/hero
+
+POST Hero Section:
+curl -X POST https://skybetbackend.bhoomi.cloud/api/getknowsolar/hero \
+  -F "title=Know Solar" \
+  -F "subtitle=Learn about solar" \
+  -F "desp=Description here" \
+  -F "img=@/path/to/image.jpg"
+
+PUT Hero Section:
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/getknowsolar/hero \
+  -F "title=Updated Title" \
+  -F "subtitle=Updated Subtitle" \
+  -F "desp=Updated Description" \
+  -F "img=@/path/to/image.jpg"
+
+DELETE Hero Section:
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/getknowsolar/hero
+
+----------------------------------------
+  FOUNDATION SECTION (Array)
+----------------------------------------
+
+GET All Foundation Items:
+curl -X GET https://skybetbackend.bhoomi.cloud/api/getknowsolar/foundation
+
+POST Foundation Item:
+curl -X POST https://skybetbackend.bhoomi.cloud/api/getknowsolar/foundation \
+  -H "Content-Type: application/json" \
+  -d '{"title": "Foundation Title", "desp": "Foundation Description"}'
+
+PUT Foundation Item:
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/getknowsolar/foundation/<itemId> \
+  -H "Content-Type: application/json" \
+  -d '{"title": "Updated Title", "desp": "Updated Description"}'
+
+DELETE Foundation Item:
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/getknowsolar/foundation/<itemId>
+
+----------------------------------------
+  CHOOSE SOLAR (Array)
+----------------------------------------
+
+GET All Choose Solar Items:
+curl -X GET https://skybetbackend.bhoomi.cloud/api/getknowsolar/choose-solar
+
+POST Choose Solar Item:
+curl -X POST https://skybetbackend.bhoomi.cloud/api/getknowsolar/choose-solar \
+  -F "name=Solar Panel" \
+  -F "desp=Description here" \
+  -F "img=@/path/to/image.jpg"
+
+PUT Choose Solar Item:
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/getknowsolar/choose-solar/<itemId> \
+  -F "name=Updated Name" \
+  -F "desp=Updated Description" \
+  -F "img=@/path/to/image.jpg"
+
+DELETE Choose Solar Item:
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/getknowsolar/choose-solar/<itemId>
+
+----------------------------------------
+  WHERE SOLAR FITS (Single)
+----------------------------------------
+
+GET Where Solar Fits:
+curl -X GET https://skybetbackend.bhoomi.cloud/api/getknowsolar/where-solar-fits
+
+POST Where Solar Fits:
+curl -X POST https://skybetbackend.bhoomi.cloud/api/getknowsolar/where-solar-fits \
+  -F "list[]=Home" \
+  -F "list[]=Office" \
+  -F "list[]=Factory" \
+  -F "img=@/path/to/image.jpg"
+
+PUT Where Solar Fits:
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/getknowsolar/where-solar-fits \
+  -F "list[]=Updated Home" \
+  -F "list[]=Updated Office" \
+  -F "img=@/path/to/image.jpg"
+
+DELETE Where Solar Fits:
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/getknowsolar/where-solar-fits
+
+========================================
+  NOTE: Replace <itemId> with actual MongoDB _id of the array item
+========================================

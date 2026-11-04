@@ -1,0 +1,56 @@
+========================================
+  REGIONAL PRODUCT API - CURL COMMANDS
+  Base URL: https://skybetbackend.bhoomi.cloud/api/regionalproduct
+========================================
+
+----------------------------------------
+  GET All Regional Products
+----------------------------------------
+
+curl -X GET https://skybetbackend.bhoomi.cloud/api/regionalproduct/
+
+----------------------------------------
+  GET Regional Product by ID
+----------------------------------------
+
+curl -X GET https://skybetbackend.bhoomi.cloud/api/regionalproduct/<id>
+
+----------------------------------------
+  POST Create Regional Product
+----------------------------------------
+
+curl -X POST https://skybetbackend.bhoomi.cloud/api/regionalproduct/ \
+  -F "title=Regional Solar Project" \
+  -F "color=Blue" \
+  -F "year=2024" \
+  -F "place=New Delhi" \
+  -F "state=Delhi" \
+  -F "zone=North" \
+  -F "descp=Description of the regional product" \
+  -F "unit=500 Units" \
+  -F "img=@/path/to/image.jpg"
+
+----------------------------------------
+  PUT Update Regional Product
+----------------------------------------
+
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/regionalproduct/<id> \
+  -F "title=Updated Regional Project" \
+  -F "color=Green" \
+  -F "year=2025" \
+  -F "place=Mumbai" \
+  -F "state=Maharashtra" \
+  -F "zone=West" \
+  -F "descp=Updated description" \
+  -F "unit=700 Units" \
+  -F "img=@/path/to/image.jpg"
+
+----------------------------------------
+  DELETE Regional Product
+----------------------------------------
+
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/regionalproduct/<id>
+
+========================================
+  NOTE: Replace <id> with actual MongoDB _id of the regional product
+========================================

@@ -1,0 +1,343 @@
+# ========================================
+#  HOME HEAD API - COMPLETE POSTMAN CURLS
+#  Base URL: https://skybetbackend.bhoomi.cloud/api/homehead
+# ========================================
+#  REQUIRED FIELDS:
+#  - heading (string) - Main heading
+#  - img (file) - Heading image
+#  - category (enum) - One of: SkybetEvergreen, SkybetUrban, SkybetIssl, SkybetAlto
+#
+#  OPTIONAL FIELDS:
+#  - list (array of strings) - Bullet points or features
+# ========================================
+
+# ########################################
+# SECTION 1: CREATE HOME HEAD (POST)
+# ########################################
+
+# 1.1 CREATE Home Head with List Items
+curl -X POST https://skybetbackend.bhoomi.cloud/api/homehead \
+  -F "heading=Skybet Evergreen Solar Solutions" \
+  -F "category=SkybetEvergreen" \
+  -F "list=[\"High efficiency panels\",\"25 year warranty\",\"Quick installation\"]" \
+  -F "img=@/path/to/evergreen-solar.jpg"
+
+# 1.2 CREATE Home Head without List (Just heading and category)
+curl -X POST https://skybetbackend.bhoomi.cloud/api/homehead \
+  -F "heading=Smart Urban Energy Solutions" \
+  -F "category=SkybetUrban" \
+  -F "img=@/path/to/urban-energy.jpg"
+
+# 1.3 CREATE SkybetIssl Category
+curl -X POST https://skybetbackend.bhoomi.cloud/api/homehead \
+  -F "heading=Industrial Solar Systems" \
+  -F "category=SkybetIssl" \
+  -F "list=[\"500+ kW capacity\",\"Commercial grade\",\"ROI in 3-5 years\"]" \
+  -F "img=@/path/to/industrial-solar.jpg"
+
+# 1.4 CREATE SkybetAlto Category
+curl -X POST https://skybetbackend.bhoomi.cloud/api/homehead \
+  -F "heading=Premium Home Energy" \
+  -F "category=SkybetAlto" \
+  -F "list=[\"Premium quality\",\"Best performance\",\"Luxury design\"]" \
+  -F "img=@/path/to/premium-home.jpg"
+
+# 1.5 CREATE with Multiple List Items
+curl -X POST https://skybetbackend.bhoomi.cloud/api/homehead \
+  -F "heading=Complete Home Solution" \
+  -F "category=SkybetEvergreen" \
+  -F "list=[\"Solar installation\",\"Battery backup\",\"Smart monitoring\",\"24/7 support\",\"Professional maintenance\"]" \
+  -F "img=@/home/user/images/complete-solution.jpg"
+
+# Expected Response:
+# {
+#   "_id": "507f1f77bcf86cd799439011",
+#   "heading": "Skybet Evergreen Solar Solutions",
+#   "category": "SkybetEvergreen",
+#   "list": ["High efficiency panels", "25 year warranty", "Quick installation"],
+#   "img": "/uploads/1234567890-evergreen.jpg",
+#   "createdAt": "2026-04-10T12:00:00.000Z",
+#   "updatedAt": "2026-04-10T12:00:00.000Z"
+# }
+
+# ########################################
+# SECTION 2: GET ALL HOME HEADS (GET)
+# ########################################
+
+# 2.1 GET All Home Heads
+curl -X GET https://skybetbackend.bhoomi.cloud/api/homehead
+
+# 2.2 GET All with Pretty JSON
+curl -s -X GET https://skybetbackend.bhoomi.cloud/api/homehead | jq .
+
+# 2.3 GET All with Specific Category Filter (in application level)
+curl -s -X GET https://skybetbackend.bhoomi.cloud/api/homehead | jq '.[] | select(.category=="SkybetEvergreen")'
+
+# Expected Response: Array of HomeHead documents
+# [
+#   {
+#     "_id": "507f1f77bcf86cd799439011",
+#     "heading": "Skybet Evergreen Solar Solutions",
+#     "category": "SkybetEvergreen",
+#     "list": [...],
+#     "img": "...",
+#     "createdAt": "...",
+#     "updatedAt": "..."
+#   },
+#   ...
+# ]
+
+# ########################################
+# SECTION 3: GET HOME HEAD BY ID (GET)
+# ########################################
+
+# 3.1 GET Home Head by ID
+curl -X GET https://skybetbackend.bhoomi.cloud/api/homehead/507f1f77bcf86cd799439011
+
+# 3.2 GET with Pretty JSON
+curl -s -X GET https://skybetbackend.bhoomi.cloud/api/homehead/507f1f77bcf86cd799439011 | jq .
+
+# Expected Response:
+# {
+#   "_id": "507f1f77bcf86cd799439011",
+#   "heading": "Skybet Evergreen Solar Solutions",
+#   "category": "SkybetEvergreen",
+#   "list": ["High efficiency panels", "25 year warranty", "Quick installation"],
+#   "img": "/uploads/1234567890-evergreen.jpg",
+#   "createdAt": "2026-04-10T12:00:00.000Z",
+#   "updatedAt": "2026-04-10T12:00:00.000Z"
+# }
+
+# ########################################
+# SECTION 4: UPDATE HOME HEAD (PUT)
+# ########################################
+
+# 4.1 UPDATE Heading Only
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/homehead/507f1f77bcf86cd799439011 \
+  -F "heading=Updated Solar Solutions Heading" \
+  -F "category=SkybetEvergreen"
+
+# 4.2 UPDATE Category Only
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/homehead/507f1f77bcf86cd799439011 \
+  -F "heading=Skybet Evergreen Solar Solutions" \
+  -F "category=SkybetUrban"
+
+# 4.3 UPDATE List Items
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/homehead/507f1f77bcf86cd799439011 \
+  -F "heading=Updated Solutions" \
+  -F "category=SkybetEvergreen" \
+  -F "list=[\"Updated feature 1\",\"Updated feature 2\",\"New feature 3\"]"
+
+# 4.4 UPDATE Image Only (Keep other fields)
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/homehead/507f1f77bcf86cd799439011 \
+  -F "heading=Skybet Evergreen Solar Solutions" \
+  -F "category=SkybetEvergreen" \
+  -F "img=@/path/to/updated-image.jpg"
+
+# 4.5 UPDATE Everything (Full Update)
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/homehead/507f1f77bcf86cd799439011 \
+  -F "heading=Premium Skybet Solutions" \
+  -F "category=SkybetAlto" \
+  -F "list=[\"Premium quality\",\"Advanced technology\",\"Expert installation\",\"Lifetime support\"]" \
+  -F "img=@/path/to/new-premium-image.jpg"
+
+# Expected Response:
+# {
+#   "_id": "507f1f77bcf86cd799439011",
+#   "heading": "Premium Skybet Solutions",
+#   "category": "SkybetAlto",
+#   "list": ["Premium quality", "Advanced technology", ...],
+#   "img": "/uploads/...",
+#   "createdAt": "...",
+#   "updatedAt": "..."
+# }
+
+# ########################################
+# SECTION 5: DELETE HOME HEAD (DELETE)
+# ########################################
+
+# 5.1 DELETE Home Head
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/homehead/507f1f77bcf86cd799439011
+
+# Expected Response:
+# {"message": "HomeHead deleted successfully"}
+
+# ########################################
+# SECTION 6: COMPLETE WORKFLOW EXAMPLE
+# ########################################
+
+echo "========================================="
+echo "COMPLETE HOME HEAD WORKFLOW"
+echo "========================================="
+
+# STEP 1: Create Home Head for Evergreen category
+echo ""
+echo "STEP 1: Creating Evergreen Solar Product..."
+EVERGREEN=$(curl -s -X POST https://skybetbackend.bhoomi.cloud/api/homehead \
+  -F "heading=Skybet Evergreen - Affordable Solar for Everyone" \
+  -F "category=SkybetEvergreen" \
+  -F "list=[\"Affordable pricing\",\"Easy installation\",\"Good efficiency\",\"5 year warranty\"]" \
+  -F "img=@/path/to/evergreen.jpg")
+echo "$EVERGREEN" | jq .
+EVERGREEN_ID=$(echo "$EVERGREEN" | jq -r '._id')
+echo "Created ID: $EVERGREEN_ID"
+
+# STEP 2: Create Urban category
+echo ""
+echo "STEP 2: Creating Urban Solar Product..."
+URBAN=$(curl -s -X POST https://skybetbackend.bhoomi.cloud/api/homehead \
+  -F "heading=Skybet Urban - Modern City Living" \
+  -F "category=SkybetUrban" \
+  -F "list=[\"Smart home integration\",\"Compact design\",\"High efficiency\",\"25 year warranty\"]" \
+  -F "img=@/path/to/urban.jpg")
+echo "$URBAN" | jq .
+URBAN_ID=$(echo "$URBAN" | jq -r '._id')
+
+# STEP 3: Create Industrial category
+echo ""
+echo "STEP 3: Creating Industrial Solar Product..."
+ISSL=$(curl -s -X POST https://skybetbackend.bhoomi.cloud/api/homehead \
+  -F "heading=Skybet Industrial - Large Scale Solutions" \
+  -F "category=SkybetIssl" \
+  -F "list=[\"500+ kW capacity\",\"Commercial grade\",\"Maximum efficiency\",\"ROI in 3 years\"]" \
+  -F "img=@/path/to/industrial.jpg")
+echo "$ISSL" | jq .
+
+# STEP 4: Create Premium category
+echo ""
+echo "STEP 4: Creating Premium Solar Product..."
+ALTO=$(curl -s -X POST https://skybetbackend.bhoomi.cloud/api/homehead \
+  -F "heading=Skybet Alto - Premium Excellence" \
+  -F "category=SkybetAlto" \
+  -F "list=[\"Premium panels\",\"Luxury design\",\"Best performance\",\"Lifetime warranty\",\"White glove service\"]" \
+  -F "img=@/path/to/alto.jpg")
+echo "$ALTO" | jq .
+
+# STEP 5: Get all products
+echo ""
+echo "STEP 5: Getting all Home Heads..."
+curl -s -X GET https://skybetbackend.bhoomi.cloud/api/homehead | jq .
+
+# STEP 6: Get specific product
+echo ""
+echo "STEP 6: Getting Evergreen Product Details..."
+curl -s -X GET https://skybetbackend.bhoomi.cloud/api/homehead/$EVERGREEN_ID | jq .
+
+# STEP 7: Update product heading
+echo ""
+echo "STEP 7: Updating Product Heading..."
+curl -s -X PUT https://skybetbackend.bhoomi.cloud/api/homehead/$EVERGREEN_ID \
+  -F "heading=Skybet Evergreen - Budget Solar Solutions" \
+  -F "category=SkybetEvergreen" | jq .
+
+# STEP 8: Update product list
+echo ""
+echo "STEP 8: Updating Product Features..."
+curl -s -X PUT https://skybetbackend.bhoomi.cloud/api/homehead/$EVERGREEN_ID \
+  -F "heading=Skybet Evergreen - Budget Solar Solutions" \
+  -F "category=SkybetEvergreen" \
+  -F "list=[\"Affordable pricing\",\"Easy installation\",\"Good efficiency\",\"10 year warranty\",\"Free maintenance\"]" | jq .
+
+# STEP 9: Update product image
+echo ""
+echo "STEP 9: Updating Product Image..."
+curl -s -X PUT https://skybetbackend.bhoomi.cloud/api/homehead/$EVERGREEN_ID \
+  -F "heading=Skybet Evergreen - Budget Solar Solutions" \
+  -F "category=SkybetEvergreen" \
+  -F "img=@/path/to/evergreen-updated.jpg" | jq .
+
+# ########################################
+# SECTION 7: CATEGORY REFERENCE
+# ########################################
+
+# Valid Categories:
+# 1. SkybetEvergreen   - Affordable / Budget Solar Solutions
+# 2. SkybetUrban       - Urban / Smart Home Solutions
+# 3. SkybetIssl        - Industrial / Large Scale Solutions
+# 4. SkybetAlto        - Premium / High-End Solutions
+
+# EXAMPLES FOR EACH CATEGORY:
+
+# SkybetEvergreen
+curl -X POST https://skybetbackend.bhoomi.cloud/api/homehead \
+  -F "heading=Affordable Solar for Every Home" \
+  -F "category=SkybetEvergreen" \
+  -F "list=[\"Budget friendly\",\"Good efficiency\",\"Quick setup\"]" \
+  -F "img=@/path/to/evergreen.jpg"
+
+# SkybetUrban
+curl -X POST https://skybetbackend.bhoomi.cloud/api/homehead \
+  -F "heading=Smart Urban Living Solutions" \
+  -F "category=SkybetUrban" \
+  -F "list=[\"IoT integrated\",\"Space saving\",\"Modern design\"]" \
+  -F "img=@/path/to/urban.jpg"
+
+# SkybetIssl
+curl -X POST https://skybetbackend.bhoomi.cloud/api/homehead \
+  -F "heading=Industrial Scale Solar Systems" \
+  -F "category=SkybetIssl" \
+  -F "list=[\"Mega watt capacity\",\"Commercial grade\",\"Enterprise support\"]" \
+  -F "img=@/path/to/issl.jpg"
+
+# SkybetAlto
+curl -X POST https://skybetbackend.bhoomi.cloud/api/homehead \
+  -F "heading=Premium Luxury Solar Solutions" \
+  -F "category=SkybetAlto" \
+  -F "list=[\"Top tier 25yr warranty\",\"Premium installation\",\"Concierge service\"]" \
+  -F "img=@/path/to/alto.jpg"
+
+# ########################################
+# SECTION 8: QUICK REFERENCE
+# ########################################
+
+# POST /                   → Create new HomeHead (heading, category, img required)
+# GET /                    → Get all HomeHeads
+# GET /:id                 → Get HomeHead by ID
+# PUT /:id                 → Update HomeHead
+# DELETE /:id              → Delete HomeHead
+
+# ########################################
+# SECTION 9: IMPORTANT NOTES
+# ########################################
+
+# REQUIRED FIELDS:
+# - heading (string): Main heading text (e.g., "Skybet Evergreen")
+# - category (enum): Must be one of:
+#   * SkybetEvergreen
+#   * SkybetUrban
+#   * SkybetIssl
+#   * SkybetAlto
+# - img (file): Image file for the heading
+
+# OPTIONAL FIELDS:
+# - list (array): Array of feature strings
+#   Format: ["Feature 1", "Feature 2", "Feature 3"]
+#   JSON string format: "[\"Feature 1\",\"Feature 2\"]"
+
+# FILE UPLOAD:
+# - Use -F "img=@/path/to/image.jpg" to upload image
+# - Supported formats: jpg, png, gif, webp
+# - Max file size: Check your upload middleware
+
+# LIST FIELD:
+# - Can be sent as array or JSON string
+# - Example 1: -F "list=[\"feature1\",\"feature2\"]"
+# - Example 2: -F "list=@/path/to/list.json"
+
+# RESPONSES:
+# Success (200/201):
+# {"_id": "...", "heading": "...", "category": "...", "list": [...], "img": "...", "createdAt": "...", "updatedAt": "..."}
+
+# Error (400):
+# {"message": "Heading, img and category are required"}
+# {"message": "Invalid category. Must be one of: SkybetEvergreen, SkybetUrban, SkybetIssl, SkybetAlto"}
+
+# Error (404):
+# {"message": "HomeHead not found"}
+
+# Error (500):
+# {"message": "error description"}
+
+# ########################################
+# END OF HOME HEAD API DOCUMENTATION
+# ========================================

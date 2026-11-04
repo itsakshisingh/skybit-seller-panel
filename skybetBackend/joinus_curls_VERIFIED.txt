@@ -1,0 +1,155 @@
+# ========================================
+#  JOIN US API - COMPLETE VERIFIED COMMANDS
+#  Base URL: https://skybetbackend.bhoomi.cloud/api/joinus
+# ========================================
+#  FIELD REFERENCE:
+#  heroJoin: { title (req), subtitle, desp, img (req) }
+#  howWeWork: { title (req), desp, img (req), stats }
+#  stats: { totalNo, noOfState, noOfProject, noOfClient }
+#  teamMembers: { name (req), img (req), designation (req), description }
+# ========================================
+
+# ========================================
+# 1. HERO JOIN CRUD
+# ========================================
+
+# GET Hero Join (returns single heroJoin object)
+curl -X GET https://skybetbackend.bhoomi.cloud/api/joinus/herojoin
+
+# POST Create Hero Join (creates new or replaces existing - uses findOne)
+curl -X POST https://skybetbackend.bhoomi.cloud/api/joinus/herojoin \
+	-F "title=Join Our Amazing Team" \
+	-F "subtitle=Be Part of Success" \
+	-F "desp=We are looking for talented individuals to join us" \
+	-F "img=@/path/to/hero-image.jpg"
+
+# PUT Update Hero Join (by JoinUs document ID)
+# IMPORTANT: <id> is the JoinUs document _id, NOT heroJoin _id
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/joinus/<id>/herojoin \
+	-F "title=Updated Team Title" \
+	-F "subtitle=Updated Subtitle" \
+	-F "desp=Updated Description" \
+	-F "img=@/path/to/new-image.jpg"
+
+# DELETE Hero Join (by JoinUs document ID)
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/joinus/<id>/herojoin
+
+# ========================================
+# 2. HOW WE WORK CRUD
+# ========================================
+
+# GET How We Work (returns single howWeWork object with stats)
+curl -X GET https://skybetbackend.bhoomi.cloud/api/joinus/howwework
+
+# POST Create How We Work (creates new or replaces existing)
+curl -X POST https://skybetbackend.bhoomi.cloud/api/joinus/howwework \
+	-F "title=Our Working Process" \
+	-F "desp=We follow agile methodology and best practices" \
+	-F "img=@/path/to/process-image.jpg"
+
+# PUT Update How We Work (by JoinUs document ID)
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/joinus/<id>/howwework \
+	-F "title=Updated Process Title" \
+	-F "desp=Updated Process Description" \
+	-F "img=@/path/to/new-process-image.jpg"
+
+# DELETE How We Work (by JoinUs document ID)
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/joinus/<id>/howwework
+
+# ========================================
+# 3. STATS CRUD (nested in howWeWork)
+# ========================================
+
+# GET Stats (returns stats object from howWeWork)
+curl -X GET https://skybetbackend.bhoomi.cloud/api/joinus/stats
+
+# PUT Update Stats (by JoinUs document ID)
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/joinus/<id>/stats \
+	-H "Content-Type: application/json" \
+	-d '{
+		"totalNo": 500,
+		"noOfState": 25,
+		"noOfProject": 150,
+		"noOfClient": 200
+	}'
+
+# ========================================
+# 4. TEAM MEMBERS CRUD (Array)
+# ========================================
+
+# GET All Team Members (returns array of teamMembers)
+curl -X GET https://skybetbackend.bhoomi.cloud/api/joinus/teammembers
+
+# POST Add Team Member (pushes new member to array)
+curl -X POST https://skybetbackend.bhoomi.cloud/api/joinus/teammembers \
+	-F "name=John Doe" \
+	-F "designation=Senior Developer" \
+	-F "description=Experienced backend developer with 5 years expertise" \
+	-F "img=@/path/to/john-photo.jpg"
+
+# GET Team Member by ID (by memberId from teamMembers._id)
+curl -X GET https://skybetbackend.bhoomi.cloud/api/joinus/teammembers/<memberId>
+
+# PUT Update Team Member (by JoinUs <id> AND member <memberId>)
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/joinus/<id>/teammembers/<memberId> \
+	-F "name=Jane Doe" \
+	-F "designation=Tech Lead" \
+	-F "description=Technical leader and architect" \
+	-F "img=@/path/to/jane-photo.jpg"
+
+# DELETE Team Member (by JoinUs <id> AND member <memberId>)
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/joinus/<id>/teammembers/<memberId>
+
+# ========================================
+# 5. JOIN US MAIN DOCUMENT CRUD
+# ========================================
+
+# POST Create Complete JoinUs Document
+# This creates the parent document with all nested data
+curl -X POST https://skybetbackend.bhoomi.cloud/api/joinus \
+	-F "heroJoin={\"title\":\"Join Us\",\"subtitle\":\"Be Part of Team\",\"desp\":\"Amazing opportunities\"}" \
+	-F "howWeWork={\"title\":\"How We Work\",\"desp\":\"Agile process\"}" \
+	-F "heroJoinImg=@/path/to/hero.jpg" \
+	-F "howWeWorkImg=@/path/to/process.jpg"
+
+# GET All JoinUs Documents (returns array)
+curl -X GET https://skybetbackend.bhoomi.cloud/api/joinus
+
+# GET JoinUs by ID (returns complete document with all nested data)
+curl -X GET https://skybetbackend.bhoomi.cloud/api/joinus/<id>
+
+# PUT Update Complete JoinUs Document
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/joinus/<id> \
+	-F "heroJoin={\"title\":\"Updated Join Us\",\"subtitle\":\"Updated Subtitle\",\"desp\":\"Updated opportunities\"}" \
+	-F "howWeWork={\"title\":\"Updated Process\",\"desp\":\"Updated methodology\"}" \
+	-F "heroJoinImg=@/path/to/new-hero.jpg" \
+	-F "howWeWorkImg=@/path/to/new-process.jpg"
+
+# DELETE JoinUs Document (deletes entire document with all nested data)
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/joinus/<id>
+
+# ========================================
+# API FLOW DIAGRAM
+# ========================================
+# 1. Create main JoinUs document (POST /)
+# 2. Get the <id> from response
+# 3. Use <id> for all heroJoin, howWeWork, stats operations
+# 4. Get teamMembers to extract <memberId>
+# 5. Use <memberId> for individual team member operations
+# 
+# Example Flow:
+# POST /api/joinus → get id="123abc"
+# PUT /api/joinus/123abc/herojoin → update hero
+# POST /api/joinus/teammembers → get memberId="456def"
+# PUT /api/joinus/123abc/teammembers/456def → update member
+
+# ========================================
+# IMPORTANT NOTES
+# ========================================
+# - img files must be actual paths: /path/to/image.jpg
+# - <id> = JoinUs document _id (from POST response)
+# - <memberId> = Team member _id (from GET /api/joinus/teammembers)
+# - For form data: use -F "field=value" for strings, -F "file=@path" for files
+# - For JSON: use -H "Content-Type: application/json" -d '{...}'
+# - All nested objects (heroJoin, howWeWork) must be JSON strings in form data
+# ========================================

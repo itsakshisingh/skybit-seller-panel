@@ -1,0 +1,125 @@
+# ========================================
+#  JOIN US API - FULL POSTMAN CURL COMMANDS
+#  Base URL: https://skybetbackend.bhoomi.cloud/api/joinus
+# ========================================
+
+# ----------------------------------------
+#  HERO JOIN
+# ----------------------------------------
+# GET Hero Join
+curl -X GET https://skybetbackend.bhoomi.cloud/api/joinus/herojoin
+
+# POST Create Hero Join
+curl -X POST https://skybetbackend.bhoomi.cloud/api/joinus/herojoin \
+	-F "title=Hero Title" \
+	-F "subtitle=Hero Subtitle" \
+	-F "desp=Hero Description" \
+	-F "img=@/path/to/image.jpg"
+
+# PUT Update Hero Join
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/joinus/<id>/herojoin \
+	-F "title=Updated Title" \
+	-F "subtitle=Updated Subtitle" \
+	-F "desp=Updated Description" \
+	-F "img=@/path/to/image.jpg"
+
+# DELETE Hero Join
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/joinus/<id>/herojoin
+
+# ----------------------------------------
+#  HOW WE WORK
+# ----------------------------------------
+# GET How We Work
+curl -X GET https://skybetbackend.bhoomi.cloud/api/joinus/howwework
+
+# POST Create How We Work
+curl -X POST https://skybetbackend.bhoomi.cloud/api/joinus/howwework \
+	-F "title=How We Work Title" \
+	-F "desp=How We Work Description" \
+	-F "img=@/path/to/image.jpg"
+
+# PUT Update How We Work
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/joinus/<id>/howwework \
+	-F "title=Updated Title" \
+	-F "desp=Updated Description" \
+	-F "img=@/path/to/image.jpg"
+
+# DELETE How We Work
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/joinus/<id>/howwework
+
+# ----------------------------------------
+#  STATS
+# ----------------------------------------
+# GET Stats
+curl -X GET https://skybetbackend.bhoomi.cloud/api/joinus/stats
+
+# PUT Update Stats
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/joinus/<id>/stats \
+	-H "Content-Type: application/json" \
+	-d '{
+		"totalNo": 100,
+		"noOfState": 50,
+		"noOfProject": 200,
+		"noOfClient": 75
+	}'
+
+# ----------------------------------------
+#  TEAM MEMBERS
+# ----------------------------------------
+# GET All Team Members
+curl -X GET https://skybetbackend.bhoomi.cloud/api/joinus/teammembers
+
+
+# POST Add Team Member (Schema Accurate)
+curl -X POST https://skybetbackend.bhoomi.cloud/api/joinus/teammembers \
+	-F "name=John Doe" \
+	-F "img=@/path/to/image.jpg" \
+	-F "designation=Developer" \
+	-F "description=Experienced backend developer"
+
+# GET Team Member by ID
+curl -X GET https://skybetbackend.bhoomi.cloud/api/joinus/teammembers/<memberId>
+
+
+# PUT Update Team Member (Schema Accurate)
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/joinus/<id>/teammembers/<memberId> \
+	-F "name=Updated Name" \
+	-F "img=@/path/to/image.jpg" \
+	-F "designation=Updated Designation" \
+	-F "description=Updated description"
+
+# DELETE Team Member
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/joinus/<id>/teammembers/<memberId>
+
+# ----------------------------------------
+#  JOIN US MAIN
+# ----------------------------------------
+# POST Create Join Us
+curl -X POST https://skybetbackend.bhoomi.cloud/api/joinus \
+	-F "heroJoinImg=@/path/to/image1.jpg" \
+	-F "howWeWorkImg=@/path/to/image2.jpg" \
+	-F "title=Join Us Title" \
+	-F "description=Join Us Description"
+
+# GET All Join Us
+curl -X GET https://skybetbackend.bhoomi.cloud/api/joinus
+
+# GET Join Us by ID
+curl -X GET https://skybetbackend.bhoomi.cloud/api/joinus/<id>
+
+# PUT Update Join Us
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/joinus/<id> \
+	-F "heroJoinImg=@/path/to/image1.jpg" \
+	-F "howWeWorkImg=@/path/to/image2.jpg" \
+	-F "title=Updated Join Us Title" \
+	-F "description=Updated Join Us Description"
+
+# DELETE Join Us
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/joinus/<id>
+
+# ========================================
+#  NOTE:
+#  - Replace <id> and <memberId> with actual values
+#  - Replace /path/to/image.jpg with actual image file path
+#  - Add/replace form fields as required by your API
+# ========================================

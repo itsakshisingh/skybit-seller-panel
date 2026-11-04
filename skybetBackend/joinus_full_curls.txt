@@ -1,0 +1,362 @@
+# ========================================
+#  JOIN US API - FULL POSTMAN CURL COMMANDS
+#  Base URL: https://skybetbackend.bhoomi.cloud/api/joinus
+#  Date: April 2026
+# ========================================
+
+# ########################################
+# SECTION 1: MAIN JOIN US DOCUMENT CRUD
+# ########################################
+
+# 1.1 CREATE Complete JoinUs Document
+curl -X POST https://skybetbackend.bhoomi.cloud/api/joinus \
+  -H "Content-Type: multipart/form-data" \
+  -F "heroJoin={\"title\":\"Join Our Amazing Team\",\"subtitle\":\"Be Part of Our Success Story\",\"desp\":\"We are looking for talented individuals to join us\"}" \
+  -F "howWeWork={\"title\":\"Our Agile Working Process\",\"desp\":\"We follow industry best practices and agile methodology\"}" \
+  -F "heroJoinImg=@/path/to/hero-image.jpg" \
+  -F "howWeWorkImg=@/path/to/process-image.jpg"
+
+# Expected Response: Complete JoinUs document with _id, createdAt, updatedAt
+# Save the _id value for subsequent operations
+
+# 1.2 GET All JoinUs Documents
+curl -X GET https://skybetbackend.bhoomi.cloud/api/joinus
+
+# 1.3 GET JoinUs by ID (returns complete document with all nested data)
+curl -X GET https://skybetbackend.bhoomi.cloud/api/joinus/69d5fad10583ea3f3f63dbe1
+
+# 1.4 UPDATE Complete JoinUs Document
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/joinus/69d5fad10583ea3f3f63dbe1 \
+  -H "Content-Type: multipart/form-data" \
+  -F "heroJoin={\"title\":\"Updated Join Us Title\",\"subtitle\":\"Updated Subtitle\",\"desp\":\"Updated Description\"}" \
+  -F "howWeWork={\"title\":\"Updated Process Title\",\"desp\":\"Updated Process Description\"}" \
+  -F "heroJoinImg=@/path/to/new-hero.jpg" \
+  -F "howWeWorkImg=@/path/to/new-process.jpg"
+
+# 1.5 DELETE JoinUs Document (deletes entire document and all nested data)
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/joinus/69d5fad10583ea3f3f63dbe1
+
+# ########################################
+# SECTION 2: HERO JOIN CRUD
+# ########################################
+
+# 2.1 GET Hero Join (returns current heroJoin object)
+# NOTE: NO ID PARAMETER NEEDED - returns the heroJoin from first document
+curl -X GET https://skybetbackend.bhoomi.cloud/api/joinus/herojoin
+
+# Example Response:
+# {
+#   "_id": "507f1f77bcf86cd799439011",
+#   "title": "Join Our Team",
+#   "subtitle": "Be Part of Success",
+#   "desp": "Amazing opportunities",
+#   "img": "/uploads/hero-image.jpg"
+# }
+
+# 2.2 POST Create/Replace Hero Join
+curl -X POST https://skybetbackend.bhoomi.cloud/api/joinus/herojoin \
+  -H "Content-Type: multipart/form-data" \
+  -F "title=Join Our Amazing Team" \
+  -F "subtitle=Be Part of Our Success" \
+  -F "desp=We are looking for talented individuals to join our growing team" \
+  -F "img=@/path/to/hero-image.jpg"
+
+# 2.3 PUT Update Hero Join
+# NOTE: REQUIRES ID PARAMETER - use the JoinUs document _id
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/joinus/69d5fad10583ea3f3f63dbe1/herojoin \
+  -H "Content-Type: multipart/form-data" \
+  -F "title=Updated Team Title" \
+  -F "subtitle=Updated Subtitle" \
+  -F "desp=Updated Description" \
+  -F "img=@/path/to/updated-hero.jpg"
+
+# 2.3a PUT Update Hero Join (Only specific fields - others preserved)
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/joinus/69d5fad10583ea3f3f63dbe1/herojoin \
+  -H "Content-Type: multipart/form-data" \
+  -F "title=Only Update Title"
+
+# 2.3b PUT Update Hero Join (Only image)
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/joinus/69d5fad10583ea3f3f63dbe1/herojoin \
+  -H "Content-Type: multipart/form-data" \
+  -F "img=@/path/to/new-image.jpg"
+
+# 2.4 DELETE Hero Join
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/joinus/69d5fad10583ea3f3f63dbe1/herojoin
+
+# ########################################
+# SECTION 3: HOW WE WORK CRUD
+# ########################################
+
+# 3.1 GET How We Work (returns current howWeWork object including stats)
+# NOTE: NO ID PARAMETER NEEDED
+curl -X GET https://skybetbackend.bhoomi.cloud/api/joinus/howwework
+
+# Example Response:
+# {
+#   "_id": "507f1f77bcf86cd799439012",
+#   "title": "Our Process",
+#   "desp": "Agile methodology",
+#   "img": "/uploads/process-image.jpg",
+#   "stats": {
+#     "totalNo": 500,
+#     "noOfState": 25,
+#     "noOfProject": 150,
+#     "noOfClient": 200
+#   }
+# }
+
+# 3.2 POST Create/Replace How We Work
+curl -X POST https://skybetbackend.bhoomi.cloud/api/joinus/howwework \
+  -H "Content-Type: multipart/form-data" \
+  -F "title=Our Working Process" \
+  -F "desp=We follow agile methodology and industry best practices" \
+  -F "img=@/path/to/process-image.jpg"
+
+# 3.3 PUT Update How We Work
+# NOTE: REQUIRES ID PARAMETER
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/joinus/69d5fad10583ea3f3f63dbe1/howwework \
+  -H "Content-Type: multipart/form-data" \
+  -F "title=Updated Process Title" \
+  -F "desp=Updated Process Description" \
+  -F "img=@/path/to/updated-process.jpg"
+
+# 3.3a PUT Update How We Work (Only specific fields)
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/joinus/69d5fad10583ea3f3f63dbe1/howwework \
+  -H "Content-Type: multipart/form-data" \
+  -F "title=Updated Title Only"
+
+# 3.4 DELETE How We Work
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/joinus/69d5fad10583ea3f3f63dbe1/howwework
+
+# ########################################
+# SECTION 4: STATS CRUD (Nested in howWeWork)
+# ########################################
+
+# 4.1 GET Stats (returns stats object from howWeWork)
+# NOTE: NO ID PARAMETER NEEDED
+curl -X GET https://skybetbackend.bhoomi.cloud/api/joinus/stats
+
+# Example Response:
+# {
+#   "totalNo": 500,
+#   "noOfState": 25,
+#   "noOfProject": 150,
+#   "noOfClient": 200
+# }
+
+# 4.2 PUT Update All Stats
+# NOTE: REQUIRES ID PARAMETER
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/joinus/69d5fad10583ea3f3f63dbe1/stats \
+  -H "Content-Type: application/json" \
+  -d '{
+    "totalNo": 1500,
+    "noOfState": 50,
+    "noOfProject": 300,
+    "noOfClient": 500
+  }'
+
+# 4.3 PUT Update Specific Stats (partial update)
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/joinus/69d5fad10583ea3f3f63dbe1/stats \
+  -H "Content-Type: application/json" \
+  -d '{
+    "totalNo": 2000,
+    "noOfClient": 750
+  }'
+
+# ########################################
+# SECTION 5: TEAM MEMBERS CRUD (Array)
+# ########################################
+
+# 5.1 GET All Team Members
+# NOTE: NO ID PARAMETER NEEDED
+curl -X GET https://skybetbackend.bhoomi.cloud/api/joinus/teammembers
+
+# Example Response: Array of team members with _id
+# [
+#   {
+#     "_id": "507f1f77bcf86cd799439013",
+#     "name": "John Doe",
+#     "designation": "Senior Developer",
+#     "description": "5 years experience",
+#     "img": "/uploads/john.jpg"
+#   },
+#   ...
+# ]
+
+# 5.2 POST Add New Team Member
+curl -X POST https://skybetbackend.bhoomi.cloud/api/joinus/teammembers \
+  -H "Content-Type: multipart/form-data" \
+  -F "name=John Doe" \
+  -F "designation=Senior Backend Developer" \
+  -F "description=Experienced in Node.js, MongoDB, and Express with 5 years expertise" \
+  -F "img=@/path/to/john-photo.jpg"
+
+# Expected Response: New team member object with _id
+# Save the _id for update/delete operations
+
+# 5.3 GET Team Member by ID
+# NOTE: Takes memberId (NOT document id)
+curl -X GET https://skybetbackend.bhoomi.cloud/api/joinus/teammembers/507f1f77bcf86cd799439013
+
+# 5.4 PUT Update Team Member
+# NOTE: REQUIRES BOTH document ID and member ID
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/joinus/69d5fad10583ea3f3f63dbe1/teammembers/507f1f77bcf86cd799439013 \
+  -H "Content-Type: multipart/form-data" \
+  -F "name=Jane Doe" \
+  -F "designation=Tech Lead" \
+  -F "description=Technical leader with expertise in system architecture" \
+  -F "img=@/path/to/jane-photo.jpg"
+
+# 5.4a PUT Update Team Member (Only specific fields)
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/joinus/69d5fad10583ea3f3f63dbe1/teammembers/507f1f77bcf86cd799439013 \
+  -H "Content-Type: multipart/form-data" \
+  -F "designation=Senior Tech Lead"
+
+# 5.5 DELETE Team Member
+# NOTE: REQUIRES BOTH document ID and member ID
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/joinus/69d5fad10583ea3f3f63dbe1/teammembers/507f1f77bcf86cd799439013
+
+# ########################################
+# SECTION 6: COMPLETE WORKFLOW EXAMPLE
+# ########################################
+
+echo "========================================="
+echo "COMPLETE WORKFLOW - STEP BY STEP"
+echo "========================================="
+
+# STEP 1: Create new JoinUs document
+echo ""
+echo "STEP 1: Creating JoinUs document..."
+RESPONSE=$(curl -s -X POST https://skybetbackend.bhoomi.cloud/api/joinus \
+  -F "heroJoin={\"title\":\"Join Us\",\"subtitle\":\"Be Part of Team\",\"desp\":\"Amazing opportunities\"}" \
+  -F "howWeWork={\"title\":\"How We Work\",\"desp\":\"Agile process\"}" \
+  -F "heroJoinImg=@/path/to/hero.jpg" \
+  -F "howWeWorkImg=@/path/to/process.jpg")
+echo "$RESPONSE" | jq .
+# Extract _id and save it (will be used as <id> in following steps)
+# Example _id: 69d5fad10583ea3f3f63dbe1
+
+# STEP 2: Get the created document
+echo ""
+echo "STEP 2: Getting created JoinUs document..."
+curl -s -X GET https://skybetbackend.bhoomi.cloud/api/joinus/69d5fad10583ea3f3f63dbe1 | jq .
+
+# STEP 3: Update heroJoin
+echo ""
+echo "STEP 3: Updating HeroJoin..."
+curl -s -X PUT https://skybetbackend.bhoomi.cloud/api/joinus/69d5fad10583ea3f3f63dbe1/herojoin \
+  -F "title=Updated Hero Title" | jq .
+
+# STEP 4: Get current heroJoin
+echo ""
+echo "STEP 4: Getting current HeroJoin..."
+curl -s -X GET https://skybetbackend.bhoomi.cloud/api/joinus/herojoin | jq .
+
+# STEP 5: Update howWeWork
+echo ""
+echo "STEP 5: Updating HowWeWork..."
+curl -s -X PUT https://skybetbackend.bhoomi.cloud/api/joinus/69d5fad10583ea3f3f63dbe1/howwework \
+  -F "title=Updated Process Title" | jq .
+
+# STEP 6: Update stats
+echo ""
+echo "STEP 6: Updating Stats..."
+curl -s -X PUT https://skybetbackend.bhoomi.cloud/api/joinus/69d5fad10583ea3f3f63dbe1/stats \
+  -H "Content-Type: application/json" \
+  -d '{"totalNo": 1000, "noOfState": 50}' | jq .
+
+# STEP 7: Add team member
+echo ""
+echo "STEP 7: Adding Team Member..."
+MEMBER_RESPONSE=$(curl -s -X POST https://skybetbackend.bhoomi.cloud/api/joinus/teammembers \
+  -F "name=Alex Smith" \
+  -F "designation=Full Stack Developer" \
+  -F "description=5 years in MERN stack" \
+  -F "img=@/path/to/alex.jpg")
+echo "$MEMBER_RESPONSE" | jq .
+# Extract memberId from response (will be used as <memberId> in following steps)
+
+# STEP 8: Get all team members
+echo ""
+echo "STEP 8: Getting all Team Members..."
+curl -s -X GET https://skybetbackend.bhoomi.cloud/api/joinus/teammembers | jq .
+
+# STEP 9: Update team member (use memberId from STEP 7 response)
+echo ""
+echo "STEP 9: Updating Team Member..."
+curl -s -X PUT https://skybetbackend.bhoomi.cloud/api/joinus/69d5fad10583ea3f3f63dbe1/teammembers/507f1f77bcf86cd799439013 \
+  -F "designation=Senior Developer" | jq .
+
+# STEP 10: Delete team member
+echo ""
+echo "STEP 10: Deleting Team Member..."
+curl -s -X DELETE https://skybetbackend.bhoomi.cloud/api/joinus/69d5fad10583ea3f3f63dbe1/teammembers/507f1f77bcf86cd799439013 | jq .
+
+# ########################################
+# SECTION 7: QUICK REFERENCE
+# ########################################
+
+# GET Endpoints (NO ID NEEDED):
+# GET /herojoin              → Get current heroJoin
+# GET /howwework             → Get current howWeWork with stats
+# GET /stats                 → Get current stats
+# GET /teammembers           → Get all team members
+# GET /teammembers/<memberId> → Get specific team member
+# GET /                      → Get all JoinUs documents
+# GET /<id>                  → Get specific JoinUs document
+
+# POST Endpoints:
+# POST /                     → Create new JoinUs document
+# POST /herojoin             → Create/Replace heroJoin
+# POST /howwework            → Create/Replace howWeWork
+# POST /teammembers          → Add new team member
+
+# PUT Endpoints (REQUIRES ID):
+# PUT /<id>                  → Update entire JoinUs document
+# PUT /<id>/herojoin         → Update heroJoin
+# PUT /<id>/howwework        → Update howWeWork
+# PUT /<id>/stats            → Update stats
+# PUT /<id>/teammembers/<memberId> → Update team member
+
+# DELETE Endpoints (REQUIRES ID):
+# DELETE /<id>               → Delete entire JoinUs document
+# DELETE /<id>/herojoin      → Delete heroJoin
+# DELETE /<id>/howwework     → Delete howWeWork
+# DELETE /<id>/teammembers/<memberId> → Delete team member
+
+# ########################################
+# SECTION 8: IMPORTANT NOTES
+# ########################################
+
+# ID PARAMETERS:
+# <id>        = JoinUs document _id (from POST / response)
+# <memberId>  = Team member _id (from GET /api/joinus/teammembers response)
+
+# CONTENT TYPES:
+# -F "field=value"                              → Form data (for file uploads)
+# -H "Content-Type: application/json" -d '{...}' → JSON data (for stats)
+
+# FILE UPLOADS:
+# -F "img=@/path/to/image.jpg"  → Upload image file
+# Omit img field to keep existing image
+
+# PARTIAL UPDATES:
+# All fields are OPTIONAL
+# Send only the fields you want to change
+# Other fields remain unchanged
+
+# RESPONSE FORMAT:
+# All endpoints return JSON responses
+# Check HTTP status code and response body for errors
+
+# EXAMPLE RESPONSES:
+
+# Success (200/201):
+# {"_id": "...", "title": "...", ...}
+
+# Error (400/404/500):
+# {"message": "error description"} OR {"error": "error description"}
+
+# ========================================
+# END OF CURL DOCUMENTATION
+# ========================================

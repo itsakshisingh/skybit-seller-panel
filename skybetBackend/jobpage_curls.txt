@@ -1,0 +1,60 @@
+========================================
+  JOB PAGE API - CURL COMMANDS
+  Base URL: https://skybetbackend.bhoomi.cloud/api/jobpage
+========================================
+
+----------------------------------------
+  HERO SECTION
+----------------------------------------
+
+GET Hero Section:
+curl -X GET https://skybetbackend.bhoomi.cloud/api/jobpage/herosection
+
+POST Create/Update Hero Section:
+curl -X POST https://skybetbackend.bhoomi.cloud/api/jobpage/herosection \
+  -F "subtitle=Join Our Team" \
+  -F "heading=We Are Hiring" \
+  -F "description=Come and grow with us" \
+  -F "img=@/path/to/image.jpg"
+
+----------------------------------------
+  WE OFFER (Array)
+----------------------------------------
+
+GET All WeOffer Items:
+curl -X GET https://skybetbackend.bhoomi.cloud/api/jobpage/weoffer
+
+POST Add WeOffer Item:
+curl -X POST https://skybetbackend.bhoomi.cloud/api/jobpage/weoffer \
+  -H "Content-Type: application/json" \
+  -d '{"icon": "star", "title": "Great Salary", "description": "Competitive pay packages"}'
+
+PUT Update WeOffer Item:
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/jobpage/weoffer/<itemId> \
+  -H "Content-Type: application/json" \
+  -d '{"icon": "trophy", "title": "Updated Title", "description": "Updated Description"}'
+
+DELETE WeOffer Item:
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/jobpage/weoffer/<itemId>
+
+----------------------------------------
+  ADDITIONAL SECTION
+----------------------------------------
+
+GET Additional Section:
+curl -X GET https://skybetbackend.bhoomi.cloud/api/jobpage/additionalsection
+
+POST Create/Update Additional Section:
+curl -X POST https://skybetbackend.bhoomi.cloud/api/jobpage/additionalsection \
+  -F "title=Additional Info" \
+  -F "descp=Description here" \
+  -F "list[]=Point One" \
+  -F "list[]=Point Two" \
+  -F "list[]=Point Three" \
+  -F "imgHeading=Image Heading" \
+  -F "imgdescription=Image Description" \
+  -F "img=@/path/to/image.jpg"
+
+========================================
+  NOTE: Replace <itemId> with actual MongoDB _id of the weOffer array item
+========================================

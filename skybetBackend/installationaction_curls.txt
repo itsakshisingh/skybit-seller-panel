@@ -1,0 +1,94 @@
+========================================
+  INSTALLATION ACTION API - CURL COMMANDS
+  Base URL: https://skybetbackend.bhoomi.cloud/api/installationaction
+========================================
+
+----------------------------------------
+  STATS
+----------------------------------------
+
+GET Stats:
+curl -X GET https://skybetbackend.bhoomi.cloud/api/installationaction/stats
+
+POST Create Stats:
+curl -X POST https://skybetbackend.bhoomi.cloud/api/installationaction/stats \
+  -H "Content-Type: application/json" \
+  -d '{"cities": "50+", "installations": "1000+", "mw": "500 MW", "states": "20+"}'
+
+PUT Update Stats:
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/installationaction/stats \
+  -H "Content-Type: application/json" \
+  -d '{"cities": "60+", "installations": "1200+", "mw": "600 MW", "states": "25+"}'
+
+DELETE Stats:
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/installationaction/stats
+
+----------------------------------------
+  HERO ACTION
+----------------------------------------
+
+GET Hero Action:
+curl -X GET https://skybetbackend.bhoomi.cloud/api/installationaction/hero-action
+
+POST Create Hero Action:
+curl -X POST https://skybetbackend.bhoomi.cloud/api/installationaction/hero-action \
+  -F "title=Installation Action Title" \
+  -F "subtitle=Subtitle Here" \
+  -F "desp=Description here" \
+  -F "img=@/path/to/image.jpg"
+
+PUT Update Hero Action:
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/installationaction/hero-action \
+  -F "title=Updated Title" \
+  -F "subtitle=Updated Subtitle" \
+  -F "desp=Updated Description" \
+  -F "img=@/path/to/image.jpg"
+
+DELETE Hero Action:
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/installationaction/hero-action
+
+----------------------------------------
+  GALLERY IMAGES (Array)
+----------------------------------------
+
+GET All Gallery Images:
+curl -X GET https://skybetbackend.bhoomi.cloud/api/installationaction/gallery-imgs
+
+POST Add Gallery Image:
+curl -X POST https://skybetbackend.bhoomi.cloud/api/installationaction/gallery-imgs \
+  -F "name=Gallery Image Name" \
+  -F "img=@/path/to/image.jpg"
+
+PUT Update Gallery Image:
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/installationaction/gallery-imgs/<imgId> \
+  -F "name=Updated Image Name" \
+  -F "img=@/path/to/image.jpg"
+
+DELETE Gallery Image:
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/installationaction/gallery-imgs/<imgId>
+
+----------------------------------------
+  VIDEO BANNER
+----------------------------------------
+
+GET Video Banner:
+curl -X GET https://skybetbackend.bhoomi.cloud/api/installationaction/video-banner
+
+POST Create Video Banner:
+curl -X POST https://skybetbackend.bhoomi.cloud/api/installationaction/video-banner \
+  -F "title=Video Banner Title" \
+  -F "description=Video Description" \
+  -F "video=@/path/to/video.mp4"
+
+PUT Update Video Banner:
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/installationaction/video-banner \
+  -F "title=Updated Title" \
+  -F "description=Updated Description" \
+  -F "video=@/path/to/video.mp4"
+
+DELETE Video Banner:
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/installationaction/video-banner
+
+========================================
+  NOTE: Replace <imgId> with actual MongoDB _id of the gallery image
+========================================

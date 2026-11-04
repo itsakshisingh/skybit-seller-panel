@@ -1,0 +1,65 @@
+=======================================================
+  REFRESH TOKEN & AUTH API - CURL COMMANDS & SPECIFICATION
+  Base URL: http://localhost:7856/api/auth
+=======================================================
+
+-------------------------------------------------------
+1. LOGIN (Returns both accessToken and refreshToken)
+-------------------------------------------------------
+Method: POST
+URL: http://localhost:7856/api/auth/login
+
+curl -X POST http://localhost:7856/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "user@skybet.com",
+    "password": "UserPassword@123"
+  }'
+
+Response:
+{
+  "_id": "6ae1dafa7272ac3baa05352a",
+  "email": "user@skybet.com",
+  "role": "user",
+  "token": "eyJhbGciOi...",       // Backward compatibility
+  "accessToken": "eyJhbGciOi...", // 1 hour short-lived access token
+  "refreshToken": "eyJhbGciOi..." // 30 days long-lived refresh token
+}
+
+-------------------------------------------------------
+2. REFRESH ACCESS TOKEN (Generate new accessToken)
+-------------------------------------------------------
+Method: POST
+URL: http://localhost:7856/api/auth/refresh-token  (or /api/auth/refresh)
+
+curl -X POST http://localhost:7856/api/auth/refresh-token \
+  -H "Content-Type: application/json" \
+  -d '{
+    "refreshToken": "eyJhbGciOi..."
+  }'
+
+Response:
+{
+  "message": "Token refreshed successfully",
+  "token": "eyJhbGciOi...",
+  "accessToken": "eyJhbGciOi...",
+  "refreshToken": "eyJhbGciOi..."  // Rotated refresh token
+}
+
+-------------------------------------------------------
+3. LOGOUT (Revokes refresh token from database)
+-------------------------------------------------------
+Method: POST
+URL: http://localhost:7856/api/auth/logout
+
+curl -X POST http://localhost:7856/api/auth/logout \
+  -H "Content-Type: application/json" \
+  -d '{
+    "refreshToken": "eyJhbGciOi..."
+  }'
+
+Response:
+{
+  "message": "Logged out successfully, refresh token revoked"
+}
+

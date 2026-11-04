@@ -1,0 +1,269 @@
+# ========================================
+#  HOME SERVE API - COMPLETE POSTMAN CURLS
+#  Base URL: https://skybetbackend.bhoomi.cloud/api/homeserve
+# ========================================
+#  REQUIRED FIELDS:
+#  - name (string) - Service name
+#  - img (file) - Service image
+# ========================================
+
+# ########################################
+# SECTION 1: CREATE HOME SERVE (POST)
+# ########################################
+
+# 1.1 CREATE Home Serve with Image
+curl -X POST https://skybetbackend.bhoomi.cloud/api/homeserve \
+  -F "name=Electrical Services" \
+  -F "img=@/path/to/electrical-service.jpg"
+
+# 1.2 CREATE with Full Sample Data
+curl -X POST https://skybetbackend.bhoomi.cloud/api/homeserve \
+  -F "name=Plumbing Installation" \
+  -F "img=@/home/user/images/plumbing.jpg"
+
+# 1.3 CREATE Solar Service
+curl -X POST https://skybetbackend.bhoomi.cloud/api/homeserve \
+  -F "name=Solar Panel Installation" \
+  -F "img=@/path/to/solar.jpg"
+
+# 1.4 CREATE HVAC Service
+curl -X POST https://skybetbackend.bhoomi.cloud/api/homeserve \
+  -F "name=HVAC System Installation" \
+  -F "img=@/path/to/hvac.jpg"
+
+# Expected Response:
+# {
+#   "_id": "507f1f77bcf86cd799439011",
+#   "name": "Electrical Services",
+#   "img": "/uploads/1234567890-electrical.jpg",
+#   "createdAt": "2026-04-10T12:00:00.000Z",
+#   "updatedAt": "2026-04-10T12:00:00.000Z"
+# }
+
+# ########################################
+# SECTION 2: GET ALL HOME SERVES (GET)
+# ########################################
+
+# 2.1 GET All Home Serves
+curl -X GET https://skybetbackend.bhoomi.cloud/api/homeserve
+
+# 2.2 GET All with Pretty JSON
+curl -s -X GET https://skybetbackend.bhoomi.cloud/api/homeserve | jq .
+
+# Expected Response: Array of HomeServe documents
+# [
+#   {
+#     "_id": "507f1f77bcf86cd799439011",
+#     "name": "Electrical Services",
+#     "img": "/uploads/1234567890-electrical.jpg",
+#     "createdAt": "...",
+#     "updatedAt": "..."
+#   },
+#   ...
+# ]
+
+# ########################################
+# SECTION 3: GET HOME SERVE BY ID (GET)
+# ########################################
+
+# 3.1 GET Home Serve by ID
+curl -X GET https://skybetbackend.bhoomi.cloud/api/homeserve/507f1f77bcf86cd799439011
+
+# 3.2 GET with Pretty JSON
+curl -s -X GET https://skybetbackend.bhoomi.cloud/api/homeserve/507f1f77bcf86cd799439011 | jq .
+
+# Expected Response:
+# {
+#   "_id": "507f1f77bcf86cd799439011",
+#   "name": "Electrical Services",
+#   "img": "/uploads/1234567890-electrical.jpg",
+#   "createdAt": "2026-04-10T12:00:00.000Z",
+#   "updatedAt": "2026-04-10T12:00:00.000Z"
+# }
+
+# ########################################
+# SECTION 4: UPDATE HOME SERVE (PUT)
+# ########################################
+
+# 4.1 UPDATE Name Only (Keep Image)
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/homeserve/507f1f77bcf86cd799439011 \
+  -F "name=Updated Electrical Services"
+
+# 4.2 UPDATE Image Only (Keep Name)
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/homeserve/507f1f77bcf86cd799439011 \
+  -F "img=@/path/to/new-image.jpg"
+
+# 4.3 UPDATE Both Name and Image
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/homeserve/507f1f77bcf86cd799439011 \
+  -F "name=Premium Electrical Services" \
+  -F "img=@/path/to/new-electrical-service.jpg"
+
+# 4.4 UPDATE with Full Sample Data
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/homeserve/507f1f77bcf86cd799439011 \
+  -F "name=Professional Plumbing Services" \
+  -F "img=@/home/user/images/updated-plumbing.jpg"
+
+# Expected Response:
+# {
+#   "_id": "507f1f77bcf86cd799439011",
+#   "name": "Premium Electrical Services",
+#   "img": "/uploads/1234567890-new-electrical.jpg",
+#   "createdAt": "2026-04-10T12:00:00.000Z",
+#   "updatedAt": "2026-04-10T13:30:00.000Z"
+# }
+
+# ########################################
+# SECTION 5: DELETE HOME SERVE (DELETE)
+# ########################################
+
+# 5.1 DELETE Home Serve
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/homeserve/507f1f77bcf86cd799439011
+
+# Expected Response:
+# {"message": "HomeServe deleted successfully"}
+
+# ########################################
+# SECTION 6: COMPLETE WORKFLOW EXAMPLE
+# ########################################
+
+echo "========================================="
+echo "COMPLETE HOME SERVE WORKFLOW"
+echo "========================================="
+
+# STEP 1: Create new home serve
+echo ""
+echo "STEP 1: Creating Home Serve..."
+RESPONSE=$(curl -s -X POST https://skybetbackend.bhoomi.cloud/api/homeserve \
+  -F "name=Skybet Home Services" \
+  -F "img=@/path/to/service-image.jpg")
+echo "$RESPONSE" | jq .
+# Extract _id from response
+SERVICE_ID=$(echo "$RESPONSE" | jq -r '._id')
+echo "Created ServiceID: $SERVICE_ID"
+
+# STEP 2: Get all services
+echo ""
+echo "STEP 2: Getting all Home Serves..."
+curl -s -X GET https://skybetbackend.bhoomi.cloud/api/homeserve | jq .
+
+# STEP 3: Get specific service
+echo ""
+echo "STEP 3: Getting specific Home Serve..."
+curl -s -X GET https://skybetbackend.bhoomi.cloud/api/homeserve/$SERVICE_ID | jq .
+
+# STEP 4: Update service name
+echo ""
+echo "STEP 4: Updating Service Name..."
+curl -s -X PUT https://skybetbackend.bhoomi.cloud/api/homeserve/$SERVICE_ID \
+  -F "name=Updated Skybet Services" | jq .
+
+# STEP 5: Update service image
+echo ""
+echo "STEP 5: Updating Service Image..."
+curl -s -X PUT https://skybetbackend.bhoomi.cloud/api/homeserve/$SERVICE_ID \
+  -F "img=@/path/to/new-image.jpg" | jq .
+
+# STEP 6: Delete service
+echo ""
+echo "STEP 6: Deleting Home Serve..."
+curl -s -X DELETE https://skybetbackend.bhoomi.cloud/api/homeserve/$SERVICE_ID | jq .
+
+# ########################################
+# SECTION 7: BATCH OPERATIONS
+# ########################################
+
+# 7.1 Create Multiple Services
+echo ""
+echo "Creating Multiple Services..."
+curl -s -X POST https://skybetbackend.bhoomi.cloud/api/homeserve \
+  -F "name=Electrical Installation" \
+  -F "img=@/path/to/electrical.jpg" | jq .
+
+curl -s -X POST https://skybetbackend.bhoomi.cloud/api/homeserve \
+  -F "name=Plumbing Services" \
+  -F "img=@/path/to/plumbing.jpg" | jq .
+
+curl -s -X POST https://skybetbackend.bhoomi.cloud/api/homeserve \
+  -F "name=Solar Installation" \
+  -F "img=@/path/to/solar.jpg" | jq .
+
+curl -s -X POST https://skybetbackend.bhoomi.cloud/api/homeserve \
+  -F "name=HVAC Services" \
+  -F "img=@/path/to/hvac.jpg" | jq .
+
+curl -s -X POST https://skybetbackend.bhoomi.cloud/api/homeserve \
+  -F "name=Roofing Services" \
+  -F "img=@/path/to/roofing.jpg" | jq .
+
+# ########################################
+# SECTION 8: QUICK REFERENCE
+# ########################################
+
+# POST /                   → Create new HomeServe (name + img required)
+# GET /                    → Get all HomeServes
+# GET /:id                 → Get HomeServe by ID
+# PUT /:id                 → Update HomeServe (name and/or img)
+# DELETE /:id              → Delete HomeServe
+
+# ########################################
+# SECTION 9: IMPORTANT NOTES
+# ########################################
+
+# REQUIRED FIELDS:
+# - name (string): Service name (e.g., "Electrical Services")
+# - img (file): Image file for the service
+
+# OPTIONAL FIELDS:
+# - None (all fields are required for creation)
+
+# FILE UPLOAD:
+# - Use -F "img=@/path/to/image.jpg" to upload image
+# - Supported formats: jpg, png, gif, webp
+# - Max file size: Check your upload middleware
+
+# RESPONSES:
+# Success (200/201):
+# {"_id": "...", "name": "...", "img": "...", "createdAt": "...", "updatedAt": "..."}
+
+# Error (400/404/500):
+# {"message": "error description"} OR {"error": "error description"}
+
+# ID PARAMETER:
+# <id> = HomeServe document _id (from POST response or GET list)
+
+# PARTIAL UPDATES (PUT):
+# - Send only the fields you want to change
+# - Other fields remain unchanged
+# - image upload is optional if not changing image
+
+# ########################################
+# EXAMPLE: REAL WORLD SCENARIO
+# ########################################
+
+# Scenario: Add a new "Roof Repair" service with image
+
+echo ""
+echo "Real World Example: Adding Roof Repair Service..."
+
+# Create the service
+ROOF_SERVICE=$(curl -s -X POST https://skybetbackend.bhoomi.cloud/api/homeserve \
+  -F "name=Professional Roof Repair and Maintenance" \
+  -F "img=@/home/user/services/roof-repair.jpg")
+
+ROOF_ID=$(echo "$ROOF_SERVICE" | jq -r '._id')
+echo "Created Roof Service with ID: $ROOF_ID"
+
+# Later, update the service with new image
+curl -s -X PUT https://skybetbackend.bhoomi.cloud/api/homeserve/$ROOF_ID \
+  -F "name=Expert Roof Repair Services" \
+  -F "img=@/home/user/services/roof-repair-updated.jpg" | jq .
+
+# Get the service
+curl -s -X GET https://skybetbackend.bhoomi.cloud/api/homeserve/$ROOF_ID | jq .
+
+# Delete if needed
+# curl -X DELETE https://skybetbackend.bhoomi.cloud/api/homeserve/$ROOF_ID
+
+# ========================================
+# END OF HOME SERVE API DOCUMENTATION
+# ========================================

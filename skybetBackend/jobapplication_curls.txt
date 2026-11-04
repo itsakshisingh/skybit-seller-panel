@@ -1,0 +1,104 @@
+# ========================================
+#  JOB APPLICATION API - POSTMAN CURL
+#  Base URL: https://skybetbackend.bhoomi.cloud/api/jobapplication
+# ========================================
+#  REQUIRED FIELDS:
+#  - fullName (string)
+#  - email (string)
+#  - phone (string)
+#  - department (string)
+#  - experience (string)
+#  OPTIONAL FIELDS:
+#  - reason (string)
+# ========================================
+
+# ========================================
+# CREATE JOB APPLICATION (POST)
+# ========================================
+curl -X POST https://skybetbackend.bhoomi.cloud/api/jobapplication \
+  -H "Content-Type: application/json" \
+  -d '{
+    "fullName": "John Doe",
+    "email": "john.doe@example.com",
+    "phone": "+91 98765 43210",
+    "department": "Backend Development",
+    "experience": "5 years in Node.js and MongoDB",
+    "reason": "I am passionate about building scalable applications"
+  }'
+
+# ========================================
+# GET ALL JOB APPLICATIONS (GET)
+# ========================================
+curl -X GET https://skybetbackend.bhoomi.cloud/api/jobapplication
+
+# ========================================
+# GET JOB APPLICATION BY ID (GET)
+# ========================================
+curl -X GET https://skybetbackend.bhoomi.cloud/api/jobapplication/<id>
+
+# ========================================
+# UPDATE JOB APPLICATION (PUT)
+# ========================================
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/jobapplication/<id> \
+  -H "Content-Type: application/json" \
+  -d '{
+    "fullName": "Jane Doe",
+    "email": "jane.doe@example.com",
+    "phone": "+91 87654 32109",
+    "department": "Frontend Development",
+    "experience": "3 years in React and TypeScript",
+    "reason": "Looking for new opportunities in innovative company"
+  }'
+
+# ========================================
+# DELETE JOB APPLICATION (DELETE)
+# ========================================
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/jobapplication/<id>
+
+# ========================================
+# SAMPLE TEST DATA FLOW
+# ========================================
+
+# 1. Create new application
+curl -X POST https://skybetbackend.bhoomi.cloud/api/jobapplication \
+  -H "Content-Type: application/json" \
+  -d '{
+    "fullName": "Arjun Kumar",
+    "email": "arjun@example.com",
+    "phone": "+91 9876543210",
+    "department": "DevOps Engineering",
+    "experience": "4 years with Kubernetes and Docker",
+    "reason": "Excited to work with cloud-native technologies"
+  }'
+  # Response will include _id: "..." - save this for next steps
+
+# 2. Get all applications
+curl -X GET https://skybetbackend.bhoomi.cloud/api/jobapplication
+
+# 3. Get specific application (replace <id> with response from step 1)
+curl -X GET https://skybetbackend.bhoomi.cloud/api/jobapplication/507f1f77bcf86cd799439011
+
+# 4. Update application
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/jobapplication/507f1f77bcf86cd799439011 \
+  -H "Content-Type: application/json" \
+  -d '{
+    "fullName": "Arjun Kumar Singh",
+    "email": "arjun.singh@example.com",
+    "phone": "+91 9876543211",
+    "department": "Senior DevOps Engineer",
+    "experience": "5 years with Kubernetes, Docker, and AWS",
+    "reason": "Looking for leadership role in infrastructure team"
+  }'
+
+# 5. Delete application
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/jobapplication/507f1f77bcf86cd799439011
+
+# ========================================
+# NOTES
+# ========================================
+# - Replace <id> with actual MongoDB _id from response
+# - All required fields (fullName, email, phone, department, experience) must be provided
+# - reason field is optional
+# - Use -H "Content-Type: application/json" for JSON data
+# - For updating, you can send only the fields you want to change
+# ========================================

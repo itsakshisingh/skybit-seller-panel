@@ -1,0 +1,89 @@
+========================================
+  CONTACT PAGE API - CURL COMMANDS
+  Base URL: https://skybetbackend.bhoomi.cloud/api/contactpage
+========================================
+
+----------------------------------------
+  WHOLE CONTACT PAGE
+----------------------------------------
+
+GET Whole ContactPage:
+curl -X GET https://skybetbackend.bhoomi.cloud/api/contactpage/
+
+POST Upsert Whole ContactPage:
+curl -X POST https://skybetbackend.bhoomi.cloud/api/contactpage/ \
+  -H "Content-Type: application/json" \
+  -d '{"hero": {"title": "Contact Us", "description": "We are here to help", "img": "uploads/hero.jpg"}, "address": {"contactNo": "+91 9876543210", "email": "info@skybet.com", "address": "123 Solar Street, New Delhi"}, "infoSections": []}'
+
+----------------------------------------
+  HERO SECTION
+----------------------------------------
+
+GET Hero Section:
+curl -X GET https://skybetbackend.bhoomi.cloud/api/contactpage/hero
+
+POST Hero Section:
+curl -X POST https://skybetbackend.bhoomi.cloud/api/contactpage/hero \
+  -F "title=Contact Us" \
+  -F "description=We are here to help you" \
+  -F "img=@/path/to/image.jpg"
+
+PUT Hero Section:
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/contactpage/hero \
+  -F "title=Updated Title" \
+  -F "description=Updated Description" \
+  -F "img=@/path/to/image.jpg"
+
+DELETE Hero Section:
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/contactpage/hero
+
+----------------------------------------
+  ADDRESS SECTION
+----------------------------------------
+
+GET Address:
+curl -X GET https://skybetbackend.bhoomi.cloud/api/contactpage/address
+
+POST Address:
+curl -X POST https://skybetbackend.bhoomi.cloud/api/contactpage/address \
+  -H "Content-Type: application/json" \
+  -d '{"contactNo": "+91 9876543210", "email": "info@skybet.com", "address": "123 Solar Street, New Delhi"}'
+
+PUT Address:
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/contactpage/address \
+  -H "Content-Type: application/json" \
+  -d '{"contactNo": "+91 9876543210", "email": "updated@skybet.com", "address": "456 New Street, Mumbai"}'
+
+DELETE Address:
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/contactpage/address
+
+----------------------------------------
+  INFO SECTIONS
+----------------------------------------
+
+GET All Info Sections:
+curl -X GET https://skybetbackend.bhoomi.cloud/api/contactpage/info-sections
+
+GET Info Section by ID:
+curl -X GET https://skybetbackend.bhoomi.cloud/api/contactpage/info-sections/<sectionId>
+
+POST Info Section (with images):
+curl -X POST https://skybetbackend.bhoomi.cloud/api/contactpage/info-sections \
+  -F "descp=This is a description" \
+  -F "list[]=Feature One" \
+  -F "list[]=Feature Two" \
+  -F "images=@/path/to/image1.jpg" \
+  -F "images=@/path/to/image2.jpg"
+
+PUT Info Section:
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/contactpage/info-sections/<sectionId> \
+  -F "descp=Updated description" \
+  -F "list[]=Updated Feature One" \
+  -F "images=@/path/to/image.jpg"
+
+DELETE Info Section:
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/contactpage/info-sections/<sectionId>
+
+========================================
+  NOTE: Replace <sectionId> with actual MongoDB _id
+========================================

@@ -1,0 +1,196 @@
+=======================================================
+  CART & WISHLIST API - CURL COMMANDS & DOCUMENTATION
+  Base URL: http://localhost:7856
+=======================================================
+
+Note:
+All Cart & Wishlist routes support both:
+1. Bearer Token in Authorization header: `Authorization: Bearer <JWT_TOKEN>`
+2. Or passing `userId` in Body / Query param directly (useful if testing or guest/flexible frontend).
+
+=======================================================
+🛒 1. CART APIs (/api/cart)
+=======================================================
+
+-------------------------------------------------------
+A) Get User's Cart
+-------------------------------------------------------
+Method: GET
+URL: http://localhost:7856/api/cart
+
+With Token:
+curl -X GET http://localhost:7856/api/cart \
+  -H "Authorization: Bearer <USER_JWT_TOKEN>"
+
+Without Token (query param):
+curl -X GET "http://localhost:7856/api/cart?userId=6ae1dafa7272ac3baa05352a"
+
+Response:
+{
+  "cart": {
+    "_id": "...",
+    "user": "...",
+    "items": [
+      {
+        "_id": "...",
+        "product": {
+          "_id": "69d61b860583ea3f3f63dbf9",
+          "name": "Decorative Light",
+          "price": 1500,
+          "img": "/uploads/..."
+        },
+        "quantity": 2,
+        "price": 1500
+      }
+    ]
+  },
+  "subtotal": 3000,
+  "totalItems": 2
+}
+
+-------------------------------------------------------
+B) Add Product to Cart
+-------------------------------------------------------
+Method: POST
+URL: http://localhost:7856/api/cart/add  (or /api/cart)
+
+With Token:
+curl -X POST http://localhost:7856/api/cart/add \
+  -H "Authorization: Bearer <USER_JWT_TOKEN>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "productId": "69d61b860583ea3f3f63dbf9",
+    "quantity": 1
+  }'
+
+Without Token:
+curl -X POST http://localhost:7856/api/cart/add \
+  -H "Content-Type: application/json" \
+  -d '{
+    "userId": "6ae1dafa7272ac3baa05352a",
+    "productId": "69d61b860583ea3f3f63dbf9",
+    "quantity": 2
+  }'
+
+-------------------------------------------------------
+C) Update Item Quantity in Cart
+-------------------------------------------------------
+Method: PUT
+URL: http://localhost:7856/api/cart/update
+
+curl -X PUT http://localhost:7856/api/cart/update \
+  -H "Authorization: Bearer <USER_JWT_TOKEN>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "productId": "69d61b860583ea3f3f63dbf9",
+    "quantity": 5
+  }'
+
+*(Note: Setting quantity to 0 automatically removes the item from the cart).*
+
+-------------------------------------------------------
+D) Remove Single Item from Cart
+-------------------------------------------------------
+Method: DELETE
+URL: http://localhost:7856/api/cart/remove/<PRODUCT_ID>
+
+curl -X DELETE http://localhost:7856/api/cart/remove/69d61b860583ea3f3f63dbf9 \
+  -H "Authorization: Bearer <USER_JWT_TOKEN>"
+
+-------------------------------------------------------
+E) Clear Entire Cart
+-------------------------------------------------------
+Method: DELETE
+URL: http://localhost:7856/api/cart/clear
+
+curl -X DELETE http://localhost:7856/api/cart/clear \
+  -H "Authorization: Bearer <USER_JWT_TOKEN>"
+
+
+=======================================================
+❤️ 2. WISHLIST APIs (/api/wishlist)
+=======================================================
+
+-------------------------------------------------------
+A) Get User's Wishlist
+-------------------------------------------------------
+Method: GET
+URL: http://localhost:7856/api/wishlist
+
+With Token:
+curl -X GET http://localhost:7856/api/wishlist \
+  -H "Authorization: Bearer <USER_JWT_TOKEN>"
+
+Without Token (query param):
+curl -X GET "http://localhost:7856/api/wishlist?userId=6ae1dafa7272ac3baa05352a"
+
+Response:
+{
+  "count": 1,
+  "wishlist": {
+    "_id": "...",
+    "user": "...",
+    "products": [
+      {
+        "_id": "69d61b860583ea3f3f63dbf9",
+        "name": "Decorative Light",
+        "category": "led",
+        "price": 1500,
+        "img": "/uploads/..."
+      }
+    ]
+  }
+}
+
+-------------------------------------------------------
+B) Add Product to Wishlist
+-------------------------------------------------------
+Method: POST
+URL: http://localhost:7856/api/wishlist/add  (or /api/wishlist)
+
+curl -X POST http://localhost:7856/api/wishlist/add \
+  -H "Authorization: Bearer <USER_JWT_TOKEN>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "productId": "69d61b860583ea3f3f63dbf9"
+  }'
+
+-------------------------------------------------------
+C) Toggle Product in Wishlist (Heart Button - Add if not present, Remove if present)
+-------------------------------------------------------
+Method: POST
+URL: http://localhost:7856/api/wishlist/toggle
+
+curl -X POST http://localhost:7856/api/wishlist/toggle \
+  -H "Authorization: Bearer <USER_JWT_TOKEN>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "productId": "69d61b860583ea3f3f63dbf9"
+  }'
+
+Response:
+{
+  "message": "Added to wishlist",  // or "Removed from wishlist"
+  "isAdded": true,
+  "count": 1,
+  "wishlist": { ... }
+}
+
+-------------------------------------------------------
+D) Remove Product from Wishlist
+-------------------------------------------------------
+Method: DELETE
+URL: http://localhost:7856/api/wishlist/remove/<PRODUCT_ID>
+
+curl -X DELETE http://localhost:7856/api/wishlist/remove/69d61b860583ea3f3f63dbf9 \
+  -H "Authorization: Bearer <USER_JWT_TOKEN>"
+
+-------------------------------------------------------
+E) Clear Entire Wishlist
+-------------------------------------------------------
+Method: DELETE
+URL: http://localhost:7856/api/wishlist/clear
+
+curl -X DELETE http://localhost:7856/api/wishlist/clear \
+  -H "Authorization: Bearer <USER_JWT_TOKEN>"
+

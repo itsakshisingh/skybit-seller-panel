@@ -1,0 +1,105 @@
+=======================================================
+  PRODUCT INQUIRY API - CURL COMMANDS & DOCUMENTATION
+  Base URL: http://localhost:7856/api/product-inquiries
+  (Also accessible at: http://localhost:7856/api/products/inquiries)
+=======================================================
+
+-------------------------------------------------------
+1. CREATE / SUBMIT PRODUCT INQUIRY (User)
+-------------------------------------------------------
+Method: POST
+URL: http://localhost:7856/api/product-inquiries
+
+A) Logged-in User (with Bearer Token):
+curl -X POST http://localhost:7856/api/product-inquiries \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <USER_JWT_TOKEN>" \
+  -d '{
+    "productId": "64f1a2b3c4d5e6f7a8b9c0d1",
+    "name": "Rahul Sharma",
+    "phone": "+91 9876543210",
+    "message": "I want to know the bulk pricing for 100 units.",
+    "quantity": 100
+  }'
+
+B) Without Header (Passing userId in body directly):
+curl -X POST http://localhost:7856/api/product-inquiries \
+  -H "Content-Type: application/json" \
+  -d '{
+    "productId": "64f1a2b3c4d5e6f7a8b9c0d1",
+    "userId": "64f1a2b3c4d5e6f7a8b9c0d2",
+    "name": "Rahul Sharma",
+    "email": "rahul@example.com",
+    "phone": "+91 9876543210",
+    "message": "Interested in solar panel warranty terms.",
+    "quantity": 5
+  }'
+
+-------------------------------------------------------
+2. GET USER'S OWN INQUIRIES (User only sees their inquiries)
+-------------------------------------------------------
+Method: GET
+URL: http://localhost:7856/api/product-inquiries/my-inquiries
+
+A) Using User Token:
+curl -X GET http://localhost:7856/api/product-inquiries/my-inquiries \
+  -H "Authorization: Bearer <USER_JWT_TOKEN>"
+
+B) Using /api/product-inquiries with User Token:
+curl -X GET http://localhost:7856/api/product-inquiries \
+  -H "Authorization: Bearer <USER_JWT_TOKEN>"
+
+C) Fallback by UserId URL Param:
+curl -X GET http://localhost:7856/api/product-inquiries/user/<USER_ID>
+
+-------------------------------------------------------
+3. GET ALL INQUIRIES (Admin sees all inquiries)
+-------------------------------------------------------
+Method: GET
+URL: http://localhost:7856/api/product-inquiries
+(or /api/product-inquiries/admin/all)
+
+curl -X GET http://localhost:7856/api/product-inquiries \
+  -H "Authorization: Bearer <ADMIN_JWT_TOKEN>"
+
+Filter by Product ID:
+curl -X GET "http://localhost:7856/api/product-inquiries?product=<PRODUCT_ID>" \
+  -H "Authorization: Bearer <ADMIN_JWT_TOKEN>"
+
+Filter by Status (pending / contacted / completed / cancelled):
+curl -X GET "http://localhost:7856/api/product-inquiries?status=pending" \
+  -H "Authorization: Bearer <ADMIN_JWT_TOKEN>"
+
+-------------------------------------------------------
+4. GET SINGLE INQUIRY BY ID
+-------------------------------------------------------
+Method: GET
+URL: http://localhost:7856/api/product-inquiries/<INQUIRY_ID>
+
+curl -X GET http://localhost:7856/api/product-inquiries/<INQUIRY_ID> \
+  -H "Authorization: Bearer <JWT_TOKEN>"
+
+-------------------------------------------------------
+5. UPDATE INQUIRY STATUS (Admin)
+-------------------------------------------------------
+Method: PUT
+URL: http://localhost:7856/api/product-inquiries/<INQUIRY_ID>/status
+
+curl -X PUT http://localhost:7856/api/product-inquiries/<INQUIRY_ID>/status \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <ADMIN_JWT_TOKEN>" \
+  -d '{
+    "status": "contacted"
+  }'
+
+Status options: 'pending' | 'contacted' | 'completed' | 'cancelled'
+
+-------------------------------------------------------
+6. DELETE INQUIRY (Admin)
+-------------------------------------------------------
+Method: DELETE
+URL: http://localhost:7856/api/product-inquiries/<INQUIRY_ID>
+
+curl -X DELETE http://localhost:7856/api/product-inquiries/<INQUIRY_ID> \
+  -H "Authorization: Bearer <ADMIN_JWT_TOKEN>"
+

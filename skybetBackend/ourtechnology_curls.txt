@@ -1,0 +1,59 @@
+========================================
+  OUR TECHNOLOGY API - CURL COMMANDS
+  Base URL: https://skybetbackend.bhoomi.cloud/api/ourtechnology
+========================================
+
+----------------------------------------
+  HERO SECTION
+----------------------------------------
+
+GET Hero Section:
+curl -X GET https://skybetbackend.bhoomi.cloud/api/ourtechnology/herosection
+
+POST Create Hero Section:
+curl -X POST https://skybetbackend.bhoomi.cloud/api/ourtechnology/herosection \
+  -F "title=Our Technology" \
+  -F "descp=Description here" \
+  -F "img=@/path/to/image.jpg"
+
+PUT Update Hero Section:
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/ourtechnology/herosection \
+  -F "title=Updated Title" \
+  -F "descp=Updated Description" \
+  -F "img=@/path/to/image.jpg"
+
+DELETE Hero Section:
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/ourtechnology/herosection
+
+----------------------------------------
+  TECH ITEMS (Array)
+----------------------------------------
+
+GET All Tech Items:
+curl -X GET https://skybetbackend.bhoomi.cloud/api/ourtechnology/techitems
+
+POST Add Tech Item:
+curl -X POST https://skybetbackend.bhoomi.cloud/api/ourtechnology/techitems \
+  -F "type=Solar Panel" \
+  -F "name=Monocrystalline Panel" \
+  -F "desp=High efficiency solar panel" \
+  -F "list[]=Feature One" \
+  -F "list[]=Feature Two" \
+  -F "list[]=Feature Three" \
+  -F "img=@/path/to/image.jpg"
+
+PUT Update Tech Item:
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/ourtechnology/techitems/<itemId> \
+  -F "type=Updated Type" \
+  -F "name=Updated Name" \
+  -F "desp=Updated Description" \
+  -F "list[]=Updated Feature One" \
+  -F "list[]=Updated Feature Two" \
+  -F "img=@/path/to/image.jpg"
+
+DELETE Tech Item:
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/ourtechnology/techitems/<itemId>
+
+========================================
+  NOTE: Replace <itemId> with actual MongoDB _id of the tech item
+========================================

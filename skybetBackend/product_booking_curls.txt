@@ -1,0 +1,125 @@
+=======================================================
+  PRODUCT BOOKING API - CURL COMMANDS & DOCUMENTATION
+  Base URL: http://localhost:7856/api/product-bookings
+  (Also accessible at: http://localhost:7856/api/products/bookings)
+=======================================================
+
+-------------------------------------------------------
+1. CREATE / SUBMIT PRODUCT BOOKING (User books product with address)
+-------------------------------------------------------
+Method: POST
+URL: http://localhost:7856/api/product-bookings
+
+A) Logged-in User (with Bearer Token):
+curl -X POST http://localhost:7856/api/product-bookings \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <USER_JWT_TOKEN>" \
+  -d '{
+    "productId": "64f1a2b3c4d5e6f7a8b9c0d1",
+    "customerName": "Rahul Sharma",
+    "phone": "+91 9876543210",
+    "shippingAddress": {
+      "street": "Plot 42, Green Avenue, Sector 5",
+      "city": "Jaipur",
+      "state": "Rajasthan",
+      "postalCode": "302001",
+      "country": "India"
+    },
+    "quantity": 2,
+    "paymentMethod": "cod",
+    "notes": "Please call before delivery"
+  }'
+
+B) Flat Address Format or without Auth Header (passing userId):
+curl -X POST http://localhost:7856/api/product-bookings \
+  -H "Content-Type: application/json" \
+  -d '{
+    "productId": "64f1a2b3c4d5e6f7a8b9c0d1",
+    "userId": "64f1a2b3c4d5e6f7a8b9c0d2",
+    "customerName": "Amit Verma",
+    "email": "amit@example.com",
+    "phone": "+91 9811223344",
+    "address": "Flat 101, Sunshine Heights, Civil Lines, Jaipur 302006",
+    "quantity": 1,
+    "paymentMethod": "cod"
+  }'
+
+-------------------------------------------------------
+2. GET USER'S OWN BOOKINGS (User sees only their booked products and status)
+-------------------------------------------------------
+Method: GET
+URL: http://localhost:7856/api/product-bookings/my-bookings
+
+A) Using User Token:
+curl -X GET http://localhost:7856/api/product-bookings/my-bookings \
+  -H "Authorization: Bearer <USER_JWT_TOKEN>"
+
+B) Using Root GET /api/product-bookings with User Token:
+curl -X GET http://localhost:7856/api/product-bookings \
+  -H "Authorization: Bearer <USER_JWT_TOKEN>"
+
+C) Fallback by UserId URL Param:
+curl -X GET http://localhost:7856/api/product-bookings/user/<USER_ID>
+
+-------------------------------------------------------
+3. GET ALL BOOKINGS (Admin sees all bookings and statuses)
+-------------------------------------------------------
+Method: GET
+URL: http://localhost:7856/api/product-bookings
+(or /api/product-bookings/admin/all)
+
+curl -X GET http://localhost:7856/api/product-bookings \
+  -H "Authorization: Bearer <ADMIN_JWT_TOKEN>"
+
+Filter by Status:
+curl -X GET "http://localhost:7856/api/product-bookings?status=pending" \
+  -H "Authorization: Bearer <ADMIN_JWT_TOKEN>"
+
+Filter by Product ID:
+curl -X GET "http://localhost:7856/api/product-bookings?product=<PRODUCT_ID>" \
+  -H "Authorization: Bearer <ADMIN_JWT_TOKEN>"
+
+-------------------------------------------------------
+4. GET SINGLE BOOKING BY ID
+-------------------------------------------------------
+Method: GET
+URL: http://localhost:7856/api/product-bookings/<BOOKING_ID>
+
+curl -X GET http://localhost:7856/api/product-bookings/<BOOKING_ID> \
+  -H "Authorization: Bearer <JWT_TOKEN>"
+
+-------------------------------------------------------
+5. UPDATE BOOKING STATUS (Admin updates status)
+-------------------------------------------------------
+Method: PUT
+URL: http://localhost:7856/api/product-bookings/<BOOKING_ID>/status
+
+curl -X PUT http://localhost:7856/api/product-bookings/<BOOKING_ID>/status \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <ADMIN_JWT_TOKEN>" \
+  -d '{
+    "status": "confirmed",
+    "paymentStatus": "pending"
+  }'
+
+Status options: 'pending' | 'confirmed' | 'processing' | 'shipped' | 'delivered' | 'cancelled'
+PaymentStatus options: 'pending' | 'paid' | 'failed' | 'refunded'
+
+-------------------------------------------------------
+6. CANCEL BOOKING (User or Admin)
+-------------------------------------------------------
+Method: PUT
+URL: http://localhost:7856/api/product-bookings/<BOOKING_ID>/cancel
+
+curl -X PUT http://localhost:7856/api/product-bookings/<BOOKING_ID>/cancel \
+  -H "Authorization: Bearer <USER_JWT_TOKEN>"
+
+-------------------------------------------------------
+7. DELETE BOOKING (Admin)
+-------------------------------------------------------
+Method: DELETE
+URL: http://localhost:7856/api/product-bookings/<BOOKING_ID>
+
+curl -X DELETE http://localhost:7856/api/product-bookings/<BOOKING_ID> \
+  -H "Authorization: Bearer <ADMIN_JWT_TOKEN>"
+

@@ -1,0 +1,70 @@
+# Postman cURL commands for homeServiceRoutes.js APIs
+# Base URL: https://skybetbackend.bhoomi.cloud/api/homeservice
+
+# --- Create Home Service ---
+# ========================================
+#  HOME SERVICE API - FULL POSTMAN CURL COMMANDS
+#  Base URL: https://skybetbackend.bhoomi.cloud/api/homeservice
+# ========================================
+
+# ----------------------------------------
+#  CREATE Home Service
+# ----------------------------------------
+# Example JSON body:
+# {
+#   "title": "Solar Panel Cleaning",
+#   "description": "Professional cleaning for maximum efficiency",
+#   "icon": "cleaning-icon.png"
+#   }
+curl -X POST "https://skybetbackend.bhoomi.cloud/api/homeservice" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Solar Panel Cleaning",
+    "description": "Professional cleaning for maximum efficiency",
+    "icon": "cleaning-icon.png"
+  }'
+
+# --- Get All Home Services ---
+# ----------------------------------------
+#  GET All Home Services
+# ----------------------------------------
+curl -X GET "https://skybetbackend.bhoomi.cloud/api/homeservice"
+
+# --- Get Home Service by ID ---
+# ----------------------------------------
+#  GET Home Service by ID
+# ----------------------------------------
+curl -X GET "https://skybetbackend.bhoomi.cloud/api/homeservice/<id>"
+
+# --- Update Home Service ---
+# ----------------------------------------
+#  UPDATE Home Service
+# ----------------------------------------
+# Example JSON body:
+# {
+#   "title": "Updated Title",
+#   "description": "Updated description",
+#   "icon": "updated-icon.png"
+# }
+curl -X PUT "https://skybetbackend.bhoomi.cloud/api/homeservice/<id>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Updated Title",
+    "description": "Updated description",
+    "icon": "updated-icon.png"
+  }'
+
+# --- Delete Home Service ---
+# ----------------------------------------
+#  DELETE Home Service
+# ----------------------------------------
+curl -X DELETE "https://skybetbackend.bhoomi.cloud/api/homeservice/<id>"
+
+# Note:
+# - Replace {id} with actual value
+# - Add/replace JSON fields as required by your API
+# ========================================
+#  NOTE:
+#  - Replace <id> with the actual Home Service ID
+#  - Adjust JSON fields as required by your API
+# ========================================

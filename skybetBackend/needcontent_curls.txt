@@ -1,0 +1,57 @@
+# Postman cURL commands for needContentRoutes.js APIs
+# Base URL: https://skybetbackend.bhoomi.cloud/api/needcontent
+
+# ----------------------------------------
+# CREATE Need Content
+# ----------------------------------------
+curl -X POST "https://skybetbackend.bhoomi.cloud/api/needcontent" \
+  -F "title=Content Title" \
+  -F "heading=Content Heading" \
+  -F "subheading=Subheading 1" \
+  -F "subheading=Subheading 2" \
+  -F "list=Point 1" \
+  -F "list=Point 2" \
+  -F "category=road" \
+  -F "img=@/path/to/image.jpg"
+
+# ----------------------------------------
+# GET All Need Contents
+# ----------------------------------------
+curl -X GET "https://skybetbackend.bhoomi.cloud/api/needcontent"
+
+# ----------------------------------------
+# GET Need Contents by Category
+# ----------------------------------------
+# Example categories: road, parking
+curl -X GET "https://skybetbackend.bhoomi.cloud/api/needcontent/category/road"
+curl -X GET "https://skybetbackend.bhoomi.cloud/api/needcontent/category/parking"
+
+# ----------------------------------------
+# GET Need Content by ID
+# ----------------------------------------
+curl -X GET "https://skybetbackend.bhoomi.cloud/api/needcontent/<id>"
+
+# ----------------------------------------
+# UPDATE Need Content
+# ----------------------------------------
+curl -X PUT "https://skybetbackend.bhoomi.cloud/api/needcontent/<id>" \
+  -F "title=Updated Title" \
+  -F "heading=Updated Heading" \
+  -F "subheading=Updated Subheading 1" \
+  -F "subheading=Updated Subheading 2" \
+  -F "list=Updated Point 1" \
+  -F "list=Updated Point 2" \
+  -F "category=parking" \
+  -F "img=@/path/to/image.jpg"
+
+# ----------------------------------------
+# DELETE Need Content
+# ----------------------------------------
+curl -X DELETE "https://skybetbackend.bhoomi.cloud/api/needcontent/<id>"
+
+# ========================================
+#  NOTE:
+#  - Replace <id> and <category> with actual values
+#  - Replace /path/to/image.jpg with actual image file path
+#  - Add/replace form fields as required by your API
+# ========================================

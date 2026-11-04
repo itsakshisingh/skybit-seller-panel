@@ -1,0 +1,82 @@
+========================================
+  SOLUTION HERO API - CURL COMMANDS
+  Base URL: https://skybetbackend.bhoomi.cloud/api/solutionhero
+========================================
+
+  category enum values: solarPanel | solarLight | solarInstallation
+
+----------------------------------------
+  GET All Solution Heroes
+----------------------------------------
+
+curl -X GET https://skybetbackend.bhoomi.cloud/api/solutionhero/
+
+----------------------------------------
+  GET Solution Hero by ID
+----------------------------------------
+
+curl -X GET https://skybetbackend.bhoomi.cloud/api/solutionhero/<id>
+
+----------------------------------------
+  GET Solution Heroes by Category
+----------------------------------------
+
+curl -X GET https://skybetbackend.bhoomi.cloud/api/solutionhero/category/solarPanel
+
+curl -X GET https://skybetbackend.bhoomi.cloud/api/solutionhero/category/solarLight
+
+curl -X GET https://skybetbackend.bhoomi.cloud/api/solutionhero/category/solarInstallation
+
+----------------------------------------
+  POST Create Solution Hero (solarPanel)
+----------------------------------------
+
+curl -X POST https://skybetbackend.bhoomi.cloud/api/solutionhero/ \
+  -F "title=Solar Panel Solutions" \
+  -F "subtitle=Best Solar Panels" \
+  -F "desp=Description here" \
+  -F "category=solarPanel" \
+  -F "img=@/path/to/image.jpg"
+
+----------------------------------------
+  POST Create Solution Hero (solarLight)
+----------------------------------------
+
+curl -X POST https://skybetbackend.bhoomi.cloud/api/solutionhero/ \
+  -F "title=Solar Light Solutions" \
+  -F "subtitle=Best Solar Lights" \
+  -F "desp=Description here" \
+  -F "category=solarLight" \
+  -F "img=@/path/to/image.jpg"
+
+----------------------------------------
+  POST Create Solution Hero (solarInstallation)
+----------------------------------------
+
+curl -X POST https://skybetbackend.bhoomi.cloud/api/solutionhero/ \
+  -F "title=Solar Installation Solutions" \
+  -F "subtitle=Expert Installation" \
+  -F "desp=Description here" \
+  -F "category=solarInstallation" \
+  -F "img=@/path/to/image.jpg"
+
+----------------------------------------
+  PUT Update Solution Hero
+----------------------------------------
+
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/solutionhero/<id> \
+  -F "title=Updated Title" \
+  -F "subtitle=Updated Subtitle" \
+  -F "desp=Updated Description" \
+  -F "category=solarPanel" \
+  -F "img=@/path/to/image.jpg"
+
+----------------------------------------
+  DELETE Solution Hero
+----------------------------------------
+
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/solutionhero/<id>
+
+========================================
+  NOTE: Replace <id> with actual MongoDB _id of the solution hero
+========================================

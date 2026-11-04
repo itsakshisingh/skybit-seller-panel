@@ -1,0 +1,57 @@
+========================================
+  SOLAR LIGHT PRODUCT API - CURL COMMANDS
+  Base URL: https://skybetbackend.bhoomi.cloud/api/solarlightproduct
+========================================
+
+----------------------------------------
+  GET All Solar Light Products
+----------------------------------------
+
+curl -X GET https://skybetbackend.bhoomi.cloud/api/solarlightproduct/
+
+----------------------------------------
+  GET Solar Light Product by ID
+----------------------------------------
+
+curl -X GET https://skybetbackend.bhoomi.cloud/api/solarlightproduct/<id>
+
+----------------------------------------
+  POST Create Solar Light Product
+----------------------------------------
+
+curl -X POST https://skybetbackend.bhoomi.cloud/api/solarlightproduct/ \
+  -F "name=Solar Street Light 50W" \
+  -F "subtitle=Best in Class" \
+  -F "power=50W" \
+  -F "time=10-12 Hours" \
+  -F "type=Street Light" \
+  -F "description=High quality solar street light" \
+  -F "list[]=Auto On/Off" \
+  -F "list[]=IP65 Waterproof" \
+  -F "list[]=Long Battery Life" \
+  -F "img=@/path/to/image.jpg"
+
+----------------------------------------
+  PUT Update Solar Light Product
+----------------------------------------
+
+curl -X PUT https://skybetbackend.bhoomi.cloud/api/solarlightproduct/<id> \
+  -F "name=Updated Solar Light" \
+  -F "subtitle=Updated Subtitle" \
+  -F "power=60W" \
+  -F "time=12-14 Hours" \
+  -F "type=Garden Light" \
+  -F "description=Updated description" \
+  -F "list[]=Updated Feature One" \
+  -F "list[]=Updated Feature Two" \
+  -F "img=@/path/to/image.jpg"
+
+----------------------------------------
+  DELETE Solar Light Product
+----------------------------------------
+
+curl -X DELETE https://skybetbackend.bhoomi.cloud/api/solarlightproduct/<id>
+
+========================================
+  NOTE: Replace <id> with actual MongoDB _id of the solar light product
+========================================
